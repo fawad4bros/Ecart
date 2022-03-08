@@ -1,36 +1,21 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const app = express();
+// const bodyParser = require("body-parser");
 const { json } = require("body-parser");
-app.use(json()); //server can accept JSON data (req.body)
-const { port, db } = require("./lib/config/config");
+const config = require("dotenv");
+
 const apis = require("./apis/api");
+const connectDB = require("./lib/config/db");
+
+const app = express();
+app.use(json()); //server can accept JSON data (req.body)
 app.use(apis);
 app.use("/image", express.static("./public/images"));
-mongoose.connect(db, (err) => {
-  if (err) {
-    console.error("Error Found! " + err);
-  } else {
-    console.log("Connected to mongoDB");
-  }
-});
+// app.use(bodyParser.urlencoded({ extended: true }));
+
+config.config({ path: "./.env" });
+
+connectDB();
+const port = process.env.PORT || 7000;
 app.listen(port, () => {
   console.log("Server Up");
 });
-
-//Via MongoDB
-// const { MongoClient } = require("mongodb");
-// const client = new MongoClient(db);
-// async function run() {
-//   try {
-//     await client.connect();
-//     const database = client.db("mulltan");
-//     const movies = database.collection("products");
-//     const query = { _id: "6225f39553ebaed7d7e5e50b" };
-//     const movie = await movies.findOne(query);
-//     console.log(movie);
-//   } finally {
-//     await client.close();
-//   }
-// }
-// run().catch(console.dir);
