@@ -1,156 +1,128 @@
 const mongoose = require("mongoose");
 const fs = require("fs");
-const _ = require("lodash");
 const productModel = require("../models/products");
-const { uploadFilee, uploadTexte } = require("../lib/multer");
+const uploadFile = require("../lib/multer");
 const allproduct = async (req, res) => {
-  await productModel
-    .find()
-    .then((product) => {
-      if (_.isEmpty(product)) {
-        return res.status(404).json({
-          message: "Collection is empty",
-        });
-      } else {
-        return res.status(200).json({ products: product });
-      }
-    })
-    .catch((err) => {
-      return res.status(500).json({
-        message: err.message,
-      });
+  try {
+    const products = await productModel.find({});
+    if (Object.keys(products).length === 0) {
+      return res.status(404).json({ message: "Collection is empty" });
+    }
+    return res.status(200).json({ products: products });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
     });
+  }
 };
 const product = async (req, res) => {
-  await productModel
-    .findOne({ _id: req.params.id })
-    .then((product) => {
-      if (_.isEmpty(product)) {
-        return res.status(404).json({ message: "No id was provided" });
-      } else {
-        return res.status(200).json({
-          product: product,
-        });
-      }
-    })
-    .catch((err) => {
-      return res.status(500).json({
-        message: err.message,
-      });
+  try {
+    const product = await productModel.findOne({ _id: req.params.id });
+    if (!product) {
+      return res.status(404).json({ message: "No product found" });
+    }
+    return res.status(200).json({ product: product });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
     });
+  }
 };
 const addproduct = async (req, res) => {
-  uploadFilee(req, res, (err) => {
-    const fileType = req.file;
-    if (err) {
-      return res.status(500).json({
-        message: err.message,
-      });
-    } else if (fileType === undefined) {
-      return res.status(400).json({
-        message: "image extension should be jpeg|jpg|png",
-      });
-    } else {
+  try {
+    uploadFile(req, res, (err) => {
+      if (req.file === undefined) {
+        return res.status(400).json({
+          message: "image extension should be jpeg|jpg|png",
+        });
+      }
       const product = new productModel({
         _id: new mongoose.Types.ObjectId(),
-        product_title: req.body.title,
-        product_price: req.body.price,
-        product_description: req.body.description,
-        product_category: req.body.category,
-        product_imageName: req.file.filename,
-        product_imagePath: "http://localhost:3000/image/" + req.file.filename,
+        productTitle: req.body.title,
+        productPrice: req.body.price,
+        productDescription: req.body.description,
+        productCategory: req.body.category,
+        productImageName: req.file.filename,
+        productImagePath: `${req.protocol}://${req.get("host")}/image/${
+          req.file.filename
+        }`,
       });
-      product //await looking
-        .save()
-        .then((result) => {
-          return res.status(201).json({
-            message: {
-              Product_Added: result._id,
-            },
-          });
-        })
-        .catch((err) => {
-          return res.status(500).json({
-            message: err.message,
-          });
+      (async () => {
+        const result = await product.save();
+        return res.status(201).json({
+          Product: result,
         });
-    }
-  });
+      })();
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
 };
+
 const updateproduct = async (req, res) => {
-  uploadFilee(req, res, (err) => {
-    const fileType = req.file;
-    if (err) {
+  try {
+    const checkProduct = await productModel.findOne({ _id: req.params.id });
+    if (!checkProduct) {
       return res.status(500).json({
-        message: err.message,
+        message: "No product found",
       });
-    } else if (fileType === undefined) {
-      return res.status(400).json({
-        message: "image extension should be jpeg|jpg|png",
-      });
-    } else {
+    }
+    const previousProductImage = checkProduct.productImageName;
+    uploadFile(req, res, (err) => {
+      if (req.file === undefined) {
+        return res.status(400).json({
+          message: "image extension should be jpeg|jpg|png",
+        });
+      }
       const filter = { _id: req.params.id };
       const update = {
-        product_title: req.body.title,
-        product_price: req.body.price,
-        product_description: req.body.description,
-        product_category: req.body.category,
-        product_imageName: req.file.filename,
-        product_imagePath: "http://localhost:3000/image/" + req.file.filename,
+        productTitle: req.body.title,
+        productPrice: req.body.price,
+        productDescription: req.body.description,
+        productCategory: req.body.category,
+        productImageName: req.file.filename,
+        productImagePath: `${req.protocol}://${req.get("host")}/image/${
+          req.file.filename
+        }`,
       };
-      const option = { new: false };
-      productModel //await looking
-        .findOneAndUpdate(filter, update, option)
-        .then((result) => {
-          const path = `public/images/${result.product_imageName}`;
-          try {
-            fs.unlinkSync(path);
-          } catch (err) {
-            res.status(500).json({
-              message: err.message,
-            });
-          }
-          return res.status(201).json({
-            message: {
-              updated_product: result._id,
-            },
-          });
-        })
-        .catch((err) => {
-          return res.json({
-            message: err.message,
-          });
+      const option = { new: true };
+      (async () => {
+        const result = await productModel.findOneAndUpdate(
+          filter,
+          update,
+          option
+        );
+        const path = `public/images/${previousProductImage}`;
+        fs.unlinkSync(path);
+        return res.status(200).json({
+          product: result,
         });
-    }
-  });
+      })();
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
 };
 const deleteproduct = async (req, res) => {
-  await productModel
-    .findOneAndRemove({ _id: req.params.id })
-    .then((product) => {
-      if (_.isEmpty(product)) {
-        return res.status(404).json({
-          message: "No id was provided",
-        });
-      } else {
-        const path = `public/images/${product.product_imageName}`;
-        try {
-          fs.unlinkSync(path);
-          return res.status(200).json({
-            message: `${product.product_title} product deleted `,
-          });
-        } catch (err) {
-          res.status(500).json({
-            error: err,
-          });
-        }
-      }
-    })
-    .catch((err) => {
-      return res.status(500).json({
-        message: err.message,
-      });
+  try {
+    const result = await productModel.findOneAndRemove({ _id: req.params.id });
+    if (!result) {
+      return res.status(404).json({ message: "No product found" });
+    }
+    const imagePath = `public/images/${result.productImageName}`;
+    fs.unlinkSync(imagePath);
+    return res.status(200).json({
+      message: result,
     });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
 };
 module.exports = {
   allproduct,
@@ -159,3 +131,11 @@ module.exports = {
   updateproduct,
   deleteproduct,
 };
+
+// function a(){
+//   data
+//   function b(){
+//     return data
+//   }
+//   return b
+// }
