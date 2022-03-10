@@ -2,9 +2,15 @@ const mongoose = require("mongoose");
 const fs = require("fs");
 const productModel = require("../models/products");
 const uploadFile = require("../lib/multer");
+
 const allproduct = async (req, res) => {
+  const limit = Number(req.query.limit) || 0;
+  const sort = req.query.sort === "desc" ? -1 : 1;
   try {
-    const products = await productModel.find({});
+    const products = await productModel
+      .find({})
+      .limit(limit)
+      .sort({ productPrice: sort });
     if (Object.keys(products).length === 0) {
       return res.status(404).json({ message: "Collection is empty" });
     }
@@ -15,6 +21,7 @@ const allproduct = async (req, res) => {
     });
   }
 };
+
 const product = async (req, res) => {
   try {
     const product = await productModel.findOne({ _id: req.params.id });
@@ -28,6 +35,7 @@ const product = async (req, res) => {
     });
   }
 };
+
 const addproduct = async (req, res) => {
   try {
     uploadFile(req, res, (err) => {
@@ -107,6 +115,7 @@ const updateproduct = async (req, res) => {
     });
   }
 };
+
 const deleteproduct = async (req, res) => {
   try {
     const result = await productModel.findOneAndRemove({ _id: req.params.id });
@@ -116,7 +125,7 @@ const deleteproduct = async (req, res) => {
     const imagePath = `public/images/${result.productImageName}`;
     fs.unlinkSync(imagePath);
     return res.status(200).json({
-      message: result,
+      Product: result,
     });
   } catch (error) {
     return res.status(500).json({
@@ -124,18 +133,45 @@ const deleteproduct = async (req, res) => {
     });
   }
 };
+
+const getProductsInCategory = async (req, res) => {
+  try {
+    const category = req.params.category;
+    const limit = Number(req.query.limit) || 0;
+    const sort = req.query.sort === "desc" ? -1 : 1;
+    const result = await productModel
+      .find({ productCategory: category })
+      .limit(limit)
+      .sort({ productPrice: sort });
+    return res.status(200).json({
+      Products: result,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+const getProductCategories = async (req, res) => {
+  try {
+    const result = await productModel.distinct("productCategory");
+    return res.status(200).json({
+      Categories: result,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   allproduct,
   product,
   addproduct,
   updateproduct,
   deleteproduct,
+  getProductCategories,
+  getProductsInCategory,
 };
-
-// function a(){
-//   data
-//   function b(){
-//     return data
-//   }
-//   return b
-// }

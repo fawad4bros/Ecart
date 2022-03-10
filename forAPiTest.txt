@@ -1,0 +1,29 @@
+cart:
+
+POST http://localhost:3000/api/cart/add
+Body json
+{"userId":100,
+"products":[{"productId":"62299e85701a67187b568606","quantity":100},{"productId":"62299f0e701a67187b56860a","quantity":100}]
+}
+
+PUT http://localhost:3000/api/cart/6229ce2f1cdc2e1cd6bbc677
+Body json
+{"userId":10,
+"products":[{"productId":"62299e85701a67187b568606","quantity":0},{"productId":"62299f0e701a67187b56860a","quantity":0}]
+}
+
+DELETE http://localhost:3000/api/cart/delete/6229ce2f1cdc2e1cd6bbc677
+
+GET http://localhost:3000/api/cart/
+
+GET http://localhost:3000/api/cart/6229ce1b1cdc2e1cd6bbc675
+
+GET http://localhost:3000/api/cart/user/15
+
+GET http://localhost:3000/api/cart/?limit=2
+
+GET http://localhost:3000/api/cart/?sort=desc
+
+GET http://localhost:3000/api/cart/byDate/?startDate=10-01-2022&endDate=10-05-2022&sort=asc
+
+GET http://localhost:3000/api/cart/byDateTime/?date=10-04-2022&startTime=17:25&sort=desc&endTime=19:25

@@ -10,6 +10,7 @@ const connectDB = require("./lib/config/db");
 
 const app = express();
 app.use(json());
+// app.use(express.urlencoded({ extended: true }));
 app.use(apis);
 app.use("/image", express.static("./public/images"));
 config.config({ path: "./.env" });
