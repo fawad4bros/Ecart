@@ -5,14 +5,16 @@ const path = require("path");
 const { json } = require("body-parser");
 const config = require("dotenv");
 
-const apis = require("./apis/api");
+// const apis = require("./apis/api");
 const connectDB = require("./lib/config/db");
 
 const app = express();
 app.use(json());
-// app.use(express.urlencoded({ extended: true }));
-app.use(apis);
-app.use("/image", express.static("./public/images"));
+
+// app.use(apis);
+require("./app/product/routesDefinations/product.routeDefs")(app);
+require("./app/cart/routesDefinations/cart.routeDefs")(app);
+app.use(express.static(path.join(__dirname, "public")));
 config.config({ path: "./.env" });
 
 if (process.env.NODE_ENV === "development") {
