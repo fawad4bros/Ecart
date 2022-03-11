@@ -14,6 +14,7 @@ app.use(json());
 // app.use(apis);
 require("./app/product/routesDefinations/product.routeDefs")(app);
 require("./app/cart/routesDefinations/cart.routeDefs")(app);
+require("./app/user/routesDefinations/user.routeDefs")(app);
 app.use(express.static(path.join(__dirname, "public")));
 config.config({ path: "./.env" });
 
