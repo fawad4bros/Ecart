@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const fs = require("fs");
-const productModel = require("../models/products");
+const { Product } = require("../models/products");
 const uploadFile = require("../../../lib/multer");
 
 class ProductController {
@@ -9,8 +9,7 @@ class ProductController {
     const limit = Number(req.query.limit) || 0;
     const sort = req.query.sort === "desc" ? -1 : 1;
     try {
-      const products = await productModel
-        .find({})
+      const products = await Product.find({})
         .limit(limit)
         .sort({ productPrice: sort });
       if (Object.keys(products).length === 0) {
@@ -19,21 +18,21 @@ class ProductController {
       return res.status(200).json({ products: products });
     } catch (error) {
       return res.status(500).json({
-        message: error.message,
+        message: "Something went wrong " + error,
       });
     }
   };
 
   product = async (req, res) => {
     try {
-      const product = await productModel.findOne({ _id: req.params.id });
+      const product = await Product.findOne({ _id: req.params.id });
       if (!product) {
         return res.status(404).json({ message: "No product found" });
       }
       return res.status(200).json({ product: product });
     } catch (error) {
       return res.status(500).json({
-        message: error.message,
+        message: "Something went wrong " + error,
       });
     }
   };
@@ -46,7 +45,7 @@ class ProductController {
             message: "image extension should be jpeg|jpg|png",
           });
         }
-        const product = new productModel({
+        const product = Product.create({
           _id: new mongoose.Types.ObjectId(),
           productTitle: req.body.title,
           productPrice: req.body.price,
@@ -58,22 +57,22 @@ class ProductController {
           }`,
         });
         (async () => {
-          const result = await product.save();
+          await product.save();
           return res.status(201).json({
-            Product: result,
+            message: "Product Successfully Created",
           });
         })();
       });
     } catch (error) {
       return res.status(500).json({
-        message: error.message,
+        message: "Something went wrong " + error,
       });
     }
   };
 
   updateproduct = async (req, res) => {
     try {
-      const checkProduct = await productModel.findOne({ _id: req.params.id });
+      const checkProduct = await Product.findOne({ _id: req.params.id });
       if (!checkProduct) {
         return res.status(500).json({
           message: "No product found",
@@ -99,28 +98,24 @@ class ProductController {
         };
         const option = { new: true };
         (async () => {
-          const result = await productModel.findOneAndUpdate(
-            filter,
-            update,
-            option
-          );
+          await Product.findOneAndUpdate(filter, update, option);
           const path = `public/images/${previousProductImage}`;
           fs.unlinkSync(path);
           return res.status(200).json({
-            product: result,
+            message: "Product Successfully Updated",
           });
         })();
       });
     } catch (error) {
       return res.status(500).json({
-        message: error.message,
+        message: "Something went wrong " + error,
       });
     }
   };
 
   deleteproduct = async (req, res) => {
     try {
-      const result = await productModel.findOneAndRemove({
+      const result = await Product.findOneAndRemove({
         _id: req.params.id,
       });
       if (!result) {
@@ -129,11 +124,11 @@ class ProductController {
       const imagePath = `public/images/${result.productImageName}`;
       fs.unlinkSync(imagePath);
       return res.status(200).json({
-        Product: result,
+        message: "Product Successfully Deleted",
       });
     } catch (error) {
       return res.status(500).json({
-        message: error.message,
+        message: "Something went wrong " + error,
       });
     }
   };
@@ -143,8 +138,7 @@ class ProductController {
       const category = req.params.category;
       const limit = Number(req.query.limit) || 0;
       const sort = req.query.sort === "desc" ? -1 : 1;
-      const result = await productModel
-        .find({ productCategory: category })
+      const result = await Product.find({ productCategory: category })
         .limit(limit)
         .sort({ productPrice: sort });
       return res.status(200).json({
@@ -152,20 +146,20 @@ class ProductController {
       });
     } catch (error) {
       return res.status(500).json({
-        message: error.message,
+        message: "Something went wrong " + error,
       });
     }
   };
 
   getProductCategories = async (req, res) => {
     try {
-      const result = await productModel.distinct("productCategory");
+      const result = await Product.distinct("productCategory");
       return res.status(200).json({
         Categories: result,
       });
     } catch (error) {
       return res.status(500).json({
-        message: error.message,
+        message: "Something went wrong " + error,
       });
     }
   };

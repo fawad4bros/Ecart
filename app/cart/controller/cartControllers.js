@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const cartModel = require("../models/cart");
+const { Cart } = require("../models/cart");
 const moment = require("moment");
 const momentDT = moment().format();
 const currentTime = moment(momentDT).format("HH:MM");
@@ -13,15 +13,14 @@ class CartController {
     const endTime = req.query.endTime;
     const date = req.query.date;
     try {
-      const carts = await cartModel
-        .find({ date: { $eq: date } })
+      const result = await Cart.find({ date: { $eq: date } })
         .find({ time: { $gte: startTime, $lte: endTime } })
 
         .sort({ time: sort });
-      return res.status(200).json({ getByDateTime: carts });
+      return res.status(200).json({ carts: result });
     } catch (error) {
       return res.status(500).json({
-        message: error.message,
+        message: "Something went wrong " + error,
       });
     }
   };
@@ -33,42 +32,46 @@ class CartController {
     const limit = Number(req.query.limit) || 0;
     const sort = req.query.sort === "desc" ? -1 : 1;
     try {
-      const carts = await cartModel.find({}).limit(limit).sort({ date: sort });
-      return res.status(200).json({ carts: carts });
+      const result = await Cart.find({}).limit(limit).sort({ date: sort });
+      return res.status(200).json({ carts: result });
     } catch (error) {
       return res.status(500).json({
-        message: error.message,
+        message: "Something went wrong " + error,
       });
     }
   };
 
   getSingle = async (req, res) => {
     try {
-      const cart = await cartModel.findOne({ _id: req.params.id });
-      return res.status(200).json({ singleCart: cart });
+      const result = await Cart.findOne({ _id: req.params.id });
+      return res.status(200).json({ cart: result });
     } catch (error) {
       return res.status(500).json({
-        message: error.message,
+        message: "Something went wrong " + error,
       });
     }
   };
-  /*https://www.bmc.com/blogs/mongodb-operators/
-      $gte	Matches if values are greater or equal to the given value.
-      $lte	Matches if values are less or equal to the given value.*/
+  /*
+  https://www.bmc.com/blogs/mongodb-operators/
+      @gte:	
+      Matches if values are greater or equal to the given value.
+      $lte	Matches if values are less or equal to the given value.
+      */
   getDateRange = async (req, res) => {
     const limit = Number(req.query.limit) || 0;
     const sort = req.query.sort === "desc" ? -1 : 1;
     const startDate = req.query.startDate;
     const endDate = req.query.endDate;
     try {
-      const carts = await cartModel
-        .find({ date: { $gte: startDate, $lte: endDate } })
+      const result = await Cart.find({
+        date: { $gte: startDate, $lte: endDate },
+      })
         .limit(limit)
         .sort({ date: sort });
-      return res.status(200).json({ cartsByDate: carts });
+      return res.status(200).json({ carts: result });
     } catch (error) {
       return res.status(500).json({
-        message: error.message,
+        message: "Something went wrong " + error,
       });
     }
   };
@@ -78,8 +81,7 @@ class CartController {
       const user = req.params.user;
       const limit = Number(req.query.limit) || 0;
       const sort = req.query.sort === "desc" ? -1 : 1;
-      const result = await cartModel
-        .find({ userId: user })
+      const result = await Cart.find({ userId: user })
         .limit(limit)
         .sort({ userId: sort });
       return res.status(200).json({
@@ -87,27 +89,27 @@ class CartController {
       });
     } catch (error) {
       return res.status(500).json({
-        message: error.message,
+        message: "Something went wrong " + error,
       });
     }
   };
 
   addNewCart = async (req, res) => {
     try {
-      const cart = new cartModel({
+      const cart = await Cart.create({
         _id: new mongoose.Types.ObjectId(),
         userId: req.body.userId,
         date: currentDate,
         time: currentTime,
         products: req.body.products,
       });
-      const result = await cart.save();
+      await cart.save();
       return res.status(201).json({
-        cart: result,
+        message: "Cart Successfully Created",
       });
     } catch (error) {
       return res.status(500).json({
-        message: error.message,
+        message: "Something went wrong " + error,
       });
     }
   };
@@ -115,7 +117,6 @@ class CartController {
   updateCart = async (req, res) => {
     try {
       const filter = { _id: req.params.id };
-      console.log("filter", filter);
       const update = {
         userId: req.body.userId,
         date: currentDate,
@@ -123,26 +124,26 @@ class CartController {
         products: req.body.products,
       };
       const option = { new: true };
-      const result = await cartModel.findOneAndUpdate(filter, update, option);
+      await Cart.findOneAndUpdate(filter, update, option);
       return res.status(200).json({
-        cart: result,
+        message: "Cart Successfully Updated",
       });
     } catch (error) {
       return res.status(500).json({
-        message: error.message,
+        message: "Something went wrong " + error,
       });
     }
   };
 
   deleteCart = async (req, res) => {
     try {
-      const result = await cartModel.findOneAndRemove({ _id: req.params.id });
+      await Cart.findOneAndRemove({ _id: req.params.id });
       return res.status(200).json({
-        cart: result,
+        message: "Cart Successfully Deleted",
       });
     } catch (error) {
       return res.status(500).json({
-        message: error.message,
+        message: "Something went wrong " + error,
       });
     }
   };
