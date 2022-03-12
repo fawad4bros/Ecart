@@ -1,3 +1,6 @@
 Method(POST) URL(/api) STATUS(404) TIME (4.51) ON (Fri, 11 Mar 2022 14:47:57 GMT)
 Method(POST) URL(/api/cart/add) STATUS(404) TIME (6.02) ON (Fri, 11 Mar 2022 15:48:14 GMT)
 Method(DELETE) URL(/api/cart/delete-all-carts) STATUS(404) TIME (12.37) ON (Fri, 11 Mar 2022 16:03:55 GMT)
+Method(GET) URL(/favicon.ico) STATUS(404) TIME (6.40) ON (Sat, 12 Mar 2022 19:21:05 GMT)
+Method(POST) URL(/api/user/add-user) STATUS(404) TIME (5.65) ON (Sat, 12 Mar 2022 21:59:33 GMT)
+Method(GET) URL(/api/user/get-user/) STATUS(404) TIME (2.33) ON (Sat, 12 Mar 2022 22:02:43 GMT)

@@ -16,12 +16,11 @@ class CartController {
     try {
       const result = await Cart.find({ date: { $eq: date } })
         .find({ time: { $gte: startTime, $lte: endTime } })
-
         .sort({ time: sort });
       return res.status(200).json({ carts: result });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };
@@ -34,7 +33,7 @@ class CartController {
       return res.status(200).json({ carts: result });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };
@@ -45,7 +44,7 @@ class CartController {
       return res.status(200).json({ cart: result });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };
@@ -68,17 +67,17 @@ class CartController {
       return res.status(200).json({ carts: result });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };
 
   getUserCart = async (req, res) => {
     try {
-      const user = req.params.user;
+      const id = req.params.id;
       const limit = Number(req.query.limit) || 0;
       const sort = req.query.sort === "desc" ? -1 : 1;
-      const result = await Cart.find({ userId: user })
+      const result = await Cart.find({ userId: id })
         .limit(limit)
         .sort({ userId: sort });
       return res.status(200).json({
@@ -86,26 +85,25 @@ class CartController {
       });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };
 
   addCart = async (req, res) => {
     try {
-      const cart = await Cart.create({
+      await Cart.create({
         userId: req.body.userId,
         date: currentDate,
         time: currentTime,
         products: req.body.products,
       });
-      await cart.save();
       return res.status(201).json({
         message: `Cart Successfully Created`,
       });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };
@@ -119,14 +117,13 @@ class CartController {
         time: currentTime,
         products: req.body.products,
       };
-      const option = { new: true };
-      await Cart.findOneAndUpdate(filter, update, option);
+      await Cart.findOneAndUpdate(filter, update);
       return res.status(200).json({
         message: "Cart Successfully Updated",
       });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };
@@ -139,10 +136,11 @@ class CartController {
       });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };
+
   deleteAllCarts = async (req, res) => {
     try {
       await Cart.deleteMany({});
@@ -151,7 +149,7 @@ class CartController {
       });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };

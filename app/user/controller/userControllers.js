@@ -5,8 +5,6 @@ class UserController {
 
   userLogin = async (req, res) => {};
 
-  userRegistration = async (req, res) => {};
-
   getUsers = async (req, res) => {
     const limit = Number(req.query.limit) || 0;
     const sort = req.query.sort === "desc" ? -1 : 1;
@@ -18,7 +16,7 @@ class UserController {
       return res.status(200).json({ users: users });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };
@@ -29,14 +27,14 @@ class UserController {
       return res.status(200).json({ user: user });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };
 
-  addUser = async (req, res) => {
+  userRegistration = async (req, res) => {
     try {
-      const create = await User.create({
+      await User.create({
         email: req.body.email,
         username: req.body.username,
         password: req.body.password,
@@ -52,10 +50,9 @@ class UserController {
         },
         phone: req.body.phone,
       });
-      await create.save();
       return res.status(201).json({ message: "Successfully Created" });
     } catch (error) {
-      return res.status(500).json({ message: "Something went wrong " + error });
+      return res.status(500).json({ message: error.message });
     }
   };
 
@@ -78,14 +75,13 @@ class UserController {
         },
         phone: req.body.phone,
       };
-      const option = { new: true };
-      await User.findOneAndUpdate(filter, update, option);
+      await User.findOneAndUpdate(filter, update);
       return res.status(200).json({
         message: "User Successfully Updated",
       });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };
@@ -98,7 +94,7 @@ class UserController {
       });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };

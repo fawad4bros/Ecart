@@ -1,7 +1,7 @@
 const fs = require("fs");
 
 const { Product } = require("../models/products");
-const uploadFile = require("../../../lib/multer");
+// const uploadFile = require("../../../lib/multer");
 
 class ProductController {
   constructor() {}
@@ -19,7 +19,7 @@ class ProductController {
       return res.status(200).json({ products: products });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };
@@ -33,82 +33,73 @@ class ProductController {
       return res.status(200).json({ product: product });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };
 
   addProduct = async (req, res) => {
+    if (req.file === undefined) {
+      return res.status(400).json({
+        message: "image extension should be jpeg|jpg|png",
+      });
+    }
     try {
-      uploadFile(req, res, (err) => {
-        if (req.file === undefined) {
-          return res.status(400).json({
-            message: "image extension should be jpeg|jpg|png",
-          });
-        }
-        const product = Product.create({
-          productTitle: req.body.title,
-          productPrice: req.body.price,
-          productDescription: req.body.description,
-          productCategory: req.body.category,
-          productImageName: req.file.filename,
-          productImagePath: `${req.protocol}://${req.get("host")}/images/${
-            req.file.filename
-          }`,
-        });
-        (async () => {
-          await product.save();
-          return res.status(201).json({
-            message: "Product Successfully Created",
-          });
-        })();
+      const product = await Product.create({
+        productTitle: req.body.title,
+        productPrice: req.body.price,
+        productDescription: req.body.description,
+        productCategory: req.body.category,
+        productImageName: req.file.filename,
+        productImagePath: `${req.protocol}://${req.get("host")}/images/${
+          req.file.filename
+        }`,
+      });
+      return res.status(200).json({
+        message: "Product Successfully Created",
       });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };
 
   updateProduct = async (req, res) => {
+    const checkProduct = await Product.findOne({ _id: req.params.id });
+    if (!checkProduct) {
+      return res.status(500).json({
+        message: "No product found",
+      });
+    }
+    const previousProductImage = checkProduct.productImageName;
+    if (req.file === undefined) {
+      return res.status(400).json({
+        message: "image extension should be jpeg|jpg|png",
+      });
+    }
     try {
-      const checkProduct = await Product.findOne({ _id: req.params.id });
-      if (!checkProduct) {
-        return res.status(500).json({
-          message: "No product found",
-        });
-      }
-      const previousProductImage = checkProduct.productImageName;
-      uploadFile(req, res, (err) => {
-        if (req.file === undefined) {
-          return res.status(400).json({
-            message: "image extension should be jpeg|jpg|png",
-          });
-        }
-        const filter = { _id: req.params.id };
-        const update = {
-          productTitle: req.body.title,
-          productPrice: req.body.price,
-          productDescription: req.body.description,
-          productCategory: req.body.category,
-          productImageName: req.file.filename,
-          productImagePath: `${req.protocol}://${req.get("host")}/images/${
-            req.file.filename
-          }`,
-        };
-        const option = { new: true };
-        (async () => {
-          await Product.findOneAndUpdate(filter, update, option);
-          const path = `public/images/${previousProductImage}`;
-          fs.unlinkSync(path);
-          return res.status(200).json({
-            message: "Product Successfully Updated",
-          });
-        })();
+      const filter = { _id: req.params.id };
+      const update = {
+        productTitle: req.body.title,
+        productPrice: req.body.price,
+        productDescription: req.body.description,
+        productCategory: req.body.category,
+        productImageName: req.file.filename,
+        productImagePath: `${req.protocol}://${req.get("host")}/images/${
+          req.file.filename
+        }`,
+      };
+      const option = { new: true };
+      await Product.findOneAndUpdate(filter, update, option);
+      const path = `public/images/${previousProductImage}`;
+      fs.unlinkSync(path);
+      return res.status(200).json({
+        message: "Product Successfully Updated",
       });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };
@@ -128,7 +119,7 @@ class ProductController {
       });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };
@@ -146,7 +137,7 @@ class ProductController {
       });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };
@@ -159,7 +150,20 @@ class ProductController {
       });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
+      });
+    }
+  };
+
+  deleteAllProducts = async (req, res) => {
+    try {
+      await Product.deleteMany({});
+      return res.status(200).json({
+        message: "Product-Collection Successfully Emptied",
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
       });
     }
   };
