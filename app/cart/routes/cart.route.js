@@ -1,14 +1,16 @@
 const express = require("express");
 const router = express.Router();
+
 const cartController = require("../controller/cartControllers");
-router.get("/", cartController.getAll);
-router.get("/byDate", cartController.getDateRange);
-router.get("/byDateTime", cartController.getByDateTime);
-router.get("/:id", cartController.getSingle);
-//Question: byDate api does not work under the getSingle
-//router.get("/byDate/", getDateRange);
-router.get("/user/:user", cartController.getUserCart);
-router.post("/add", cartController.addNewCart);
-router.put("/:id", cartController.updateCart);
-router.delete("/delete/:id", cartController.deleteCart);
+
+router.get("/get-carts", cartController.getCarts);
+router.get("/get-carts-bydate", cartController.getcartsByDateRange);
+router.get("/get-carts-bydatetime", cartController.getCartsByDateTime);
+router.get("/get-cart/:id", cartController.getCart);
+router.get("/get-user-cart/:user", cartController.getUserCart);
+router.post("/add-cart", cartController.addCart);
+router.put("/update-cart/:id", cartController.updateCart);
+router.delete("/delete-all-carts", cartController.deleteAllCarts);
+router.delete("/delete-cart/:id", cartController.deleteCart);
+
 module.exports = router;

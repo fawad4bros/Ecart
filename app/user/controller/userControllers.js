@@ -3,6 +3,7 @@ const { User } = require("../models/user");
 
 class UserController {
   constructor() {}
+
   getUsers = async (req, res) => {
     const limit = Number(req.query.limit) || 0;
     const sort = req.query.sort === "desc" ? -1 : 1;

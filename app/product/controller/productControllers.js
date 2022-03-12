@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
 const fs = require("fs");
+
 const { Product } = require("../models/products");
 const uploadFile = require("../../../lib/multer");
 
 class ProductController {
   constructor() {}
-  allproduct = async (req, res) => {
+
+  products = async (req, res) => {
     const limit = Number(req.query.limit) || 0;
     const sort = req.query.sort === "desc" ? -1 : 1;
     try {
@@ -37,7 +39,7 @@ class ProductController {
     }
   };
 
-  addproduct = async (req, res) => {
+  addProduct = async (req, res) => {
     try {
       uploadFile(req, res, (err) => {
         if (req.file === undefined) {
@@ -70,7 +72,7 @@ class ProductController {
     }
   };
 
-  updateproduct = async (req, res) => {
+  updateProduct = async (req, res) => {
     try {
       const checkProduct = await Product.findOne({ _id: req.params.id });
       if (!checkProduct) {
@@ -113,7 +115,7 @@ class ProductController {
     }
   };
 
-  deleteproduct = async (req, res) => {
+  deleteProduct = async (req, res) => {
     try {
       const result = await Product.findOneAndRemove({
         _id: req.params.id,
@@ -133,7 +135,7 @@ class ProductController {
     }
   };
 
-  getProductsInCategory = async (req, res) => {
+  getProductsByCategory = async (req, res) => {
     try {
       const category = req.params.category;
       const limit = Number(req.query.limit) || 0;
