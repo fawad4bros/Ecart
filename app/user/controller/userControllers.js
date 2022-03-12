@@ -1,8 +1,11 @@
-const mongoose = require("mongoose");
 const { User } = require("../models/user");
 
 class UserController {
   constructor() {}
+
+  userLogin = async (req, res) => {};
+
+  userRegistration = async (req, res) => {};
 
   getUsers = async (req, res) => {
     const limit = Number(req.query.limit) || 0;
@@ -34,7 +37,6 @@ class UserController {
   addUser = async (req, res) => {
     try {
       const create = await User.create({
-        _id: new mongoose.Types.ObjectId(),
         email: req.body.email,
         username: req.body.username,
         password: req.body.password,

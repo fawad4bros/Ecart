@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const { Cart } = require("../models/cart");
 const moment = require("moment");
 
@@ -95,15 +94,14 @@ class CartController {
   addCart = async (req, res) => {
     try {
       const cart = await Cart.create({
-        _id: new mongoose.Types.ObjectId(),
         userId: req.body.userId,
         date: currentDate,
         time: currentTime,
         products: req.body.products,
       });
-      const result = await cart.save();
+      await cart.save();
       return res.status(201).json({
-        message: `Cart Successfully Created ${result}`,
+        message: `Cart Successfully Created`,
       });
     } catch (error) {
       return res.status(500).json({

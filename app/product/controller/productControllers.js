@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const fs = require("fs");
 
 const { Product } = require("../models/products");
@@ -48,7 +47,6 @@ class ProductController {
           });
         }
         const product = Product.create({
-          _id: new mongoose.Types.ObjectId(),
           productTitle: req.body.title,
           productPrice: req.body.price,
           productDescription: req.body.description,
