@@ -153,5 +153,24 @@ class CartController {
       });
     }
   };
+
+  userPreviousOrders = async (req, res) => {
+    try {
+      const productsDetail = await Cart.findOne({
+        _id: req.params.id,
+      }).populate({ path: "products.productId" });
+      const userDetail = await Cart.findOne({
+        _id: req.params.id,
+      }).populate({ path: "userId", select: "name" });
+      return res.status(200).json({
+        user: userDetail.userId.name,
+        products: productsDetail.products,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  };
 }
 module.exports = new CartController();

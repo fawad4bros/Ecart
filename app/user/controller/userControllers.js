@@ -3,7 +3,27 @@ const { User } = require("../models/user");
 class UserController {
   constructor() {}
 
-  userLogin = async (req, res) => {};
+  userLogin = async (req, res) => {
+    try {
+      const user = await User.findOne({ email: req.body.email });
+      if (!user) {
+        return res.status(401).json({
+          message: "Invalid email",
+        });
+      } else if (user.password !== req.body.password) {
+        return res.status(401).json({
+          message: "Invalid password",
+        });
+      }
+      return res.status(200).json({
+        message: `Welcome ${user.name}`,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  };
 
   getUsers = async (req, res) => {
     const limit = Number(req.query.limit) || 0;

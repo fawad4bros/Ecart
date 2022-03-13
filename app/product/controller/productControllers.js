@@ -1,7 +1,6 @@
 const fs = require("fs");
 
 const { Product } = require("../models/products");
-// const uploadFile = require("../../../lib/multer");
 
 class ProductController {
   constructor() {}

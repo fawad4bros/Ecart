@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const schema = new mongoose.Schema({
   userId: {
-    type: Number,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
   date: {
@@ -10,9 +11,17 @@ const schema = new mongoose.Schema({
   time: {
     type: String,
   },
-  products: {
-    type: Array,
-  },
+  products: [
+    {
+      productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+      },
+      quantity: {
+        type: Number,
+      },
+    },
+  ],
 });
 
 const Cart = mongoose.model("Cart", schema);
