@@ -11,9 +11,9 @@ app.use(json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static("./dist/frontend"));
 
-require("app/product/routesDefinations/product.routeDefs")(app);
-require("app/cart/routesDefinations/cart.routeDefs")(app);
-require("app/user/routesDefinations/user.routeDefs")(app);
+require("./app/product/routesDefinations/product.routeDefs")(app);
+require("./app/cart/routesDefinations/cart.routeDefs")(app);
+require("./app/user/routesDefinations/user.routeDefs")(app);
 
 dotenv.config({ path: "./.env" });
 
