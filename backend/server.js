@@ -9,6 +9,7 @@ const app = express();
 
 app.use(json());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static("../frontend/dist/frontend"));
 
 require("./app/product/routesDefinations/product.routeDefs")(app);
 require("./app/cart/routesDefinations/cart.routeDefs")(app);
@@ -17,7 +18,11 @@ require("./app/user/routesDefinations/user.routeDefs")(app);
 dotenv.config({ path: "./.env" });
 
 connectDB();
-
+app.get("/*", (req, res) => {
+  res.sendFile("index.html", {
+    root: "../frontend/dist/frontend",
+  });
+});
 const port = process.env.PORT || 7000;
 app.listen(port, () => {
   console.log(`Server Up`);
