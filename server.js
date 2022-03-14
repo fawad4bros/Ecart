@@ -20,7 +20,7 @@ dotenv.config({ path: "./backend/.env" });
 connectDB();
 app.get("/*", (req, res) => {
   res.sendFile("index.html", {
-    root: path.join(__dirname, "/frontend/dist/frontend"),
+    root: "/frontend/dist/frontend",
   });
 });
 const port = process.env.PORT || 7000;
