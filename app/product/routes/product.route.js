@@ -1,11 +1,38 @@
 const express = require("express");
 const router = express.Router();
+
+const uploadFile = require("../../middlewares/multer.middleware");
 const productController = require("../controller/productControllers");
-router.get("/products", productController.allproduct);
-router.get("/product/:id", productController.product);
-router.post("/add", productController.addproduct);
-router.put("/update/:id", productController.updateproduct);
-router.delete("/delete/:id", productController.deleteproduct);
-router.get("/category/:category", productController.getProductsInCategory);
-router.get("/categories", productController.getProductCategories);
+const verifyToken = require("../../middlewares/jwt.middleware");
+
+router.get("/get-products", productController.products);
+router.get("/get-product/:id", productController.product);
+router.post(
+  "/add-product",
+  verifyToken,
+  uploadFile,
+  productController.addProduct
+);
+router.put(
+  "/update-product/:id",
+  verifyToken,
+  uploadFile,
+  productController.updateProduct
+);
+router.delete(
+  "/delete-product/:id",
+  verifyToken,
+  productController.deleteProduct
+);
+router.delete(
+  "/delete-products",
+  verifyToken,
+  productController.deleteAllProducts
+);
+router.get(
+  "/get-product-category/:category",
+  productController.getProductsByCategory
+);
+router.get("/get-categories", productController.getProductCategories);
+
 module.exports = router;

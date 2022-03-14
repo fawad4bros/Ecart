@@ -1,14 +1,20 @@
 const express = require("express");
 const router = express.Router();
+
 const cartController = require("../controller/cartControllers");
-router.get("/", cartController.getAll);
-router.get("/byDate", cartController.getDateRange);
-router.get("/byDateTime", cartController.getByDateTime);
-router.get("/:id", cartController.getSingle);
-//Question: byDate api does not work under the getSingle
-//router.get("/byDate/", getDateRange);
-router.get("/user/:user", cartController.getUserCart);
-router.post("/add", cartController.addNewCart);
-router.put("/:id", cartController.updateCart);
-router.delete("/delete/:id", cartController.deleteCart);
+const verifyToken = require("../../middlewares/jwt.middleware");
+
+router.get("/get-carts", cartController.getCarts);
+router.get("/get-carts-bydate", cartController.getcartsByDateRange);
+router.get("/get-carts-bydatetime", cartController.getCartsByDateTime);
+router.get("/get-cart/:id", cartController.getCart);
+router.get("/get-user-cart/:id", cartController.getUserCart);
+
+router.get("/get-previous-orders/:id", cartController.userPreviousOrders);
+
+router.post("/add-cart", verifyToken, cartController.addCart);
+router.put("/update-cart/:id", verifyToken, cartController.updateCart);
+router.delete("/delete-all-carts", verifyToken, cartController.deleteAllCarts);
+router.delete("/delete-cart/:id", verifyToken, cartController.deleteCart);
+
 module.exports = router;

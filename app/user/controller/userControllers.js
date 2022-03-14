@@ -1,8 +1,38 @@
-const mongoose = require("mongoose");
 const { User } = require("../models/user");
-
+const { WishList } = require("../models/wishlist");
+const { Comments } = require("../models/comments");
+const { Rating } = require("../models/rating");
+const jwt = require("jsonwebtoken");
 class UserController {
   constructor() {}
+
+  userLogin = async (req, res) => {
+    try {
+      const user = await User.findOne({ email: req.body.email });
+      if (!user) {
+        return res.status(401).json({
+          message: "Invalid email",
+        });
+      } else if (user.password !== req.body.password) {
+        return res.status(401).json({
+          message: "Invalid password",
+        });
+      }
+      let payload = { subject: user._id };
+      let token = jwt.sign(payload, "somethingSomething", {
+        expiresIn: "1h",
+      });
+      return res.status(200).json({
+        message: `Welcome ${user.name}`,
+        token: token,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  };
+
   getUsers = async (req, res) => {
     const limit = Number(req.query.limit) || 0;
     const sort = req.query.sort === "desc" ? -1 : 1;
@@ -14,7 +44,7 @@ class UserController {
       return res.status(200).json({ users: users });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };
@@ -25,15 +55,14 @@ class UserController {
       return res.status(200).json({ user: user });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };
 
-  addUser = async (req, res) => {
+  userRegistration = async (req, res) => {
     try {
-      const create = await User.create({
-        _id: new mongoose.Types.ObjectId(),
+      await User.create({
         email: req.body.email,
         username: req.body.username,
         password: req.body.password,
@@ -49,10 +78,9 @@ class UserController {
         },
         phone: req.body.phone,
       });
-      await create.save();
       return res.status(201).json({ message: "Successfully Created" });
     } catch (error) {
-      return res.status(500).json({ message: "Something went wrong " + error });
+      return res.status(500).json({ message: error.message });
     }
   };
 
@@ -75,14 +103,13 @@ class UserController {
         },
         phone: req.body.phone,
       };
-      const option = { new: true };
-      await User.findOneAndUpdate(filter, update, option);
+      await User.findOneAndUpdate(filter, update);
       return res.status(200).json({
         message: "User Successfully Updated",
       });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
       });
     }
   };
@@ -95,7 +122,55 @@ class UserController {
       });
     } catch (error) {
       return res.status(500).json({
-        message: "Something went wrong " + error,
+        message: error.message,
+      });
+    }
+  };
+  userWishList = async (req, res) => {
+    try {
+      await WishList.create({
+        user: req.body.user,
+        product: req.body.product,
+        isActive: req.body.isActive,
+      });
+      return res.status(200).json({
+        message: "Product added to wishlist",
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  };
+  addComment = async (req, res) => {
+    try {
+      await Comments.create({
+        user: req.body.user,
+        product: req.body.product,
+        comment: req.body.comment,
+      });
+      return res.status(200).json({
+        message: "Comment added",
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  };
+  addRating = async (req, res) => {
+    try {
+      await Rating.create({
+        user: req.body.user,
+        product: req.body.product,
+        rating: req.body.rating,
+      });
+      return res.status(200).json({
+        message: "Rating added",
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
       });
     }
   };
