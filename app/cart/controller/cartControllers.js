@@ -1,4 +1,5 @@
 const { Cart } = require("../models/cart");
+const { Product } = require("../../product/models/products");
 const moment = require("moment");
 
 const momentDT = moment().format();
@@ -156,15 +157,14 @@ class CartController {
 
   userPreviousOrders = async (req, res) => {
     try {
-      const productsDetail = await Cart.findOne({
-        _id: req.params.id,
-      }).populate({ path: "products.productId" });
-      const userDetail = await Cart.findOne({
-        _id: req.params.id,
-      }).populate({ path: "userId", select: "name" });
+      const productsDetail = await Cart.find(
+        {
+          $match: { userId: req.params.id },
+        },
+        { products: 1, _id: 0 }
+      ).populate({ path: "products.productId" });
       return res.status(200).json({
-        user: userDetail.userId.name,
-        products: productsDetail.products,
+        products: productsDetail,
       });
     } catch (error) {
       return res.status(500).json({

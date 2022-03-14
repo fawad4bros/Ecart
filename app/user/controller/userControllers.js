@@ -1,5 +1,8 @@
 const { User } = require("../models/user");
-
+const { WishList } = require("../models/wishlist");
+const { Comments } = require("../models/comments");
+const { Rating } = require("../models/rating");
+const jwt = require("jsonwebtoken");
 class UserController {
   constructor() {}
 
@@ -15,8 +18,13 @@ class UserController {
           message: "Invalid password",
         });
       }
+      let payload = { subject: user._id };
+      let token = jwt.sign(payload, "somethingSomething", {
+        expiresIn: "1h",
+      });
       return res.status(200).json({
         message: `Welcome ${user.name}`,
+        token: token,
       });
     } catch (error) {
       return res.status(500).json({
@@ -111,6 +119,54 @@ class UserController {
       await User.findOneAndRemove({ _id: req.params.id });
       return res.status(200).json({
         message: "User Successfully Deleted",
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  };
+  userWishList = async (req, res) => {
+    try {
+      await WishList.create({
+        user: req.body.user,
+        product: req.body.product,
+        isActive: req.body.isActive,
+      });
+      return res.status(200).json({
+        message: "Product added to wishlist",
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  };
+  addComment = async (req, res) => {
+    try {
+      await Comments.create({
+        user: req.body.user,
+        product: req.body.product,
+        comment: req.body.comment,
+      });
+      return res.status(200).json({
+        message: "Comment added",
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  };
+  addRating = async (req, res) => {
+    try {
+      await Rating.create({
+        user: req.body.user,
+        product: req.body.product,
+        rating: req.body.rating,
+      });
+      return res.status(200).json({
+        message: "Rating added",
       });
     } catch (error) {
       return res.status(500).json({
