@@ -1,0 +1,18 @@
+<div *ngIf="products" >
+  <mat-card *ngFor="let product of products" >
+    <mat-card-header>
+      <mat-card-title>{{product.productTitle}}</mat-card-title>
+      <mat-card-subtitle>{{product.productPrice}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src={{product.productImagePath}}>
+    <mat-card-content>
+      <p>
+        {{product.productDescription}}
+      </p>
+    </mat-card-content>
+  <!-- <button (click)="viewItem(item.id)" mat-fab class="button" color="primary">
+    <mat-icon>remove_red_eye</mat-icon>
+  </button> -->
+  </mat-card>
+  </div>
+<p>works</p>
