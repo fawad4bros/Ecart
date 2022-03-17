@@ -15,7 +15,7 @@ class ProductController {
       if (Object.keys(products).length === 0) {
         return res.status(404).json({ message: "Collection is empty" });
       }
-      return res.status(200).json({ products: products });
+      return res.status(200).json(products);
     } catch (error) {
       return res.status(500).json({
         message: error.message,

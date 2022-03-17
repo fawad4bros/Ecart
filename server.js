@@ -10,7 +10,11 @@ const app = express();
 app.use(json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static("./dist/frontend"));
-
+const cors = require("cors");
+const corsOptions = {
+  origin: "http://localhost:4200",
+};
+app.use(cors(corsOptions));
 require("./app/product/routesDefinations/product.routeDefs")(app);
 require("./app/cart/routesDefinations/cart.routeDefs")(app);
 require("./app/user/routesDefinations/user.routeDefs")(app);
