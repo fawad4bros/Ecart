@@ -16,4 +16,7 @@ export class ProductsService {
   getItems(){
     return this.http.get("http://localhost:3000/api/product/get-products");
   }
+  getcategories(){
+    return this.http.get("http://localhost:3000/api/product/get-categories");
+  }
 }

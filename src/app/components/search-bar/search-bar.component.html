@@ -1,0 +1,18 @@
+<form class="example-form">
+  <mat-form-field >
+    <mat-label>Search</mat-label>
+    <input matInput  type="search">
+  </mat-form-field>
+  <mat-form-field  >
+    <mat-label>Favorite food</mat-label>
+    <mat-select  name="food">
+      <mat-option *ngFor="let food of foods" [value]="food.value">
+        {{food}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-mini-fab color="primary" >
+    <mat-icon>search</mat-icon>
+  </button>
+</form>
+<!-- [(ngModel)]="selectedValue" -->

@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { LayoutModule } from '../layout/layout.module';
+
 @NgModule({
   declarations: [
     ProductsComponent,
@@ -17,6 +18,7 @@ import { LayoutModule } from '../layout/layout.module';
     MatIconModule,
     MatButtonModule,
     LayoutModule
-  ]
+  ],
+  exports: [ ProductsComponent ]
 })
 export class PagesModule { }

@@ -144,9 +144,7 @@ class ProductController {
   getProductCategories = async (req, res) => {
     try {
       const result = await Product.distinct("productCategory");
-      return res.status(200).json({
-        Categories: result,
-      });
+      return res.status(200).json(result);
     } catch (error) {
       return res.status(500).json({
         message: error.message,

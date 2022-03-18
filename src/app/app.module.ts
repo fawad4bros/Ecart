@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import{ PagesModule } from './pages/pages.module'
 import { LayoutModule } from './layout/layout.module';
-
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +22,7 @@ import { LayoutModule } from './layout/layout.module';
     BrowserAnimationsModule,
     PagesModule,
     LayoutModule,
+    ComponentsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
