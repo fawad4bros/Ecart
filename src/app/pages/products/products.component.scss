@@ -3,84 +3,27 @@ mat-card {
   display: inline-grid;
   position: relative;
   max-width: 15%;
-  min-width: 5%;
-  // border-radius: 4px;
   margin: 5px;
 }
-// img {
-//   max-width: 15%;
-//   min-width: 5%;
-//   display: inline-grid;
-// }
-// .mat-flat-button.mat-accent,
-// .mat-raised-button.mat-accent,
-// .mat-fab.mat-accent,
-// .mat-mini-fab.mat-accent {
-//   background-color: #fff;
-// }
-// .mat-flat-button.mat-accent,
-// .mat-raised-button.mat-accent,
-// .mat-fab.mat-accent,
-// .mat-mini-fab.mat-accent {
-//   color: #ff4081;
-// }
-// .mat-flat-button.mat-primary,
-// .mat-raised-button.mat-primary,
-// .mat-fab.mat-primary,
-// .mat-mini-fab.mat-primary {
-//   max-width: 50%;
-// }
 #add_to_cart {
-  display: inline-block;
-  vertical-align: middle;
-}
-#favorite {
-  display: inline-block;
-  vertical-align: middle;
+  display: inline;
 }
 #favorite_button {
-  margin-left: 1px;
+  display: inline;
+}
+@media (max-width: 690px) {
+  mat-card {
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-block;
+    margin: 5px;
+    max-width: 20%;
+  }
 }
 
-@media screen and (max-width: 1200px) {
-  .mat-flat-button.mat-primary,
-  .mat-raised-button.mat-primary,
-  .mat-fab.mat-primary,
-  .mat-mini-fab.mat-primary {
-    font-size: 95%;
+@media (max-width: 470px) {
+  mat-card {
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 5px;
+    max-width: 50%;
   }
 }
-@media screen and (max-width: 600px) {
-  .mat-flat-button.mat-primary,
-  .mat-raised-button.mat-primary,
-  .mat-fab.mat-primary,
-  .mat-mini-fab.mat-primary {
-    font-size: 95%;
-  }
-}
-@media screen and (max-width: 1200px) {
-  .mat-flat-button.mat-accent,
-  .mat-raised-button.mat-accent,
-  .mat-fab.mat-accent,
-  .mat-mini-fab.mat-accent {
-    font-size: 95%;
-  }
-}
-@media screen and (max-width: 600px) {
-  .mat-flat-button.mat-accent,
-  .mat-raised-button.mat-accent,
-  .mat-fab.mat-accent,
-  .mat-mini-fab.mat-accent {
-    font-size: 95%;
-  }
-}
-// @media screen and (max-width: 600px) {
-//   .mat-card {
-//     width: 10%;
-//   }
-// }
-// @media screen and (max-width: 1200px) {
-//   .mat-card {
-//     width: 10%;
-//   }
-// }

@@ -1,8 +1,9 @@
 <div class="categories" *ngIf="categories" >
-  <mat-card *ngFor="let category of categories">
+
+  <div id="category" *ngFor="let category of categories">
+    <button mat-button color="primary">
     <mat-icon aria-hidden="false">fastfood</mat-icon>
-    <mat-card-content>
-    <h1>{{category}}</h1>
-  </mat-card-content>
-  </mat-card>
+      <h4 style="color: #000000;">{{category}}</h4>
+  </button>
+  </div>
   </div>

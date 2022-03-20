@@ -1,16 +1,14 @@
-<div class="products" *ngIf="products" >
+<div id="products" *ngIf="products" >
   <mat-card *ngFor="let product of products" >
-    <img mat-card-image src={{product.productImagePath}}>
-    <mat-card-content>
-        <b>${{product.productPrice}}</b>
-        <p>{{product.productTitle}}</p>
-        <div><button id="add_to_cart" mat-raised-button color="primary">Add to cart</button>
-          <button id="favorite_button" mat-mini-fab>
-            <mat-icon id="favorite_icon" >favorite</mat-icon>
-          </button></div>
-    </mat-card-content>
 
+    <mat-card-content>
+      <img mat-card-image src={{product.productImagePath}}>
+        <b>{{product.productPrice | currency:'PKR':"Rs":"1.0-0"}}</b>
+        <p>{{product.productTitle}}</p>
+        <button id="add_to_cart" mat-raised-button color="primary">Add to cart</button>
+          <button id="favorite_button" mat-raised-button>
+            <mat-icon id="favorite_icon" >favorite</mat-icon>
+          </button>
+    </mat-card-content>
   </mat-card>
   </div>
-
-  <!-- (click)="viewItem(item.id)"  -->

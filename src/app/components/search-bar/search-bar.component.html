@@ -1,9 +1,9 @@
-<form class="example-form">
-  <mat-form-field >
+<form id="example-form">
+  <mat-form-field id="search">
     <mat-label>Search</mat-label>
     <input matInput  type="search">
   </mat-form-field>
-  <mat-form-field  >
+  <mat-form-field id="category_option" >
     <mat-label>Favorite food</mat-label>
     <mat-select  name="food">
       <mat-option *ngFor="let food of foods" [value]="food.value">
@@ -11,7 +11,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-mini-fab color="primary" >
+  <button mat-button color="primary" id="search_button">
     <mat-icon>search</mat-icon>
   </button>
 </form>
