@@ -7,12 +7,15 @@ import { environment } from 'src/environments/environment';
 export class ProductsService {
 
   constructor(private http: HttpClient) {
-    console.log(`${environment.baseUrl}product/get-products`)
   }
   getItems(){
     return this.http.get(`${environment.baseUrl}product/get-products`);
   }
   getcategories(){
     return this.http.get(`${environment.baseUrl}product/get-categories`);
+  }
+  addToCart(body:any){
+    return this.http.get(`${environment.baseUrl}cart/add-cart`, body);
+
   }
 }

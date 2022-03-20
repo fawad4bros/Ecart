@@ -131,9 +131,7 @@ class ProductController {
       const result = await Product.find({ productCategory: category })
         .limit(limit)
         .sort({ productPrice: sort });
-      return res.status(200).json({
-        Products: result,
-      });
+      return res.status(200).json(result);
     } catch (error) {
       return res.status(500).json({
         message: error.message,

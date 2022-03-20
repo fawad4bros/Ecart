@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/shared/services/pages/products.service';
-
+import { ComponentsService } from 'src/app/shared/services/components/components.service';
 @Component({
   selector: 'app-categories-with-icon',
   templateUrl: './categories-with-icon.component.html',
@@ -8,12 +8,20 @@ import { ProductsService } from 'src/app/shared/services/pages/products.service'
 })
 export class CategoriesWithIconComponent implements OnInit {
   categories: any
-  constructor(private productService: ProductsService) {
+  productsByCategory:any
+  category:any
+  constructor(private productService: ProductsService, private componentsService: ComponentsService) {
     this.productService.getcategories().subscribe((data)=>{
       this.categories = data
     })
    }
   ngOnInit(): void {
+  }
+  getproducts(category:any){
+    this.componentsService.getProductsByCategory(category).subscribe((data)=>{
+      this.productsByCategory = data
+      this.category = category
+    })
   }
 
 }
