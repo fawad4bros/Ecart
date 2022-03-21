@@ -26,6 +26,7 @@
       // "@controls/radio": [ "src/app/shared/components/forms/radio-control/radio-control.component" ],
       // C:\Users\fawad.naeem\Documents\Ecart\src\environments
       "@environments/*": [ "src/environments/*" ],
+      "@services/*": [ "src/app/shared/services/*" ],
       // "@ProductsService":["src/app/shared/services/pages/products.service"],
   }
   },

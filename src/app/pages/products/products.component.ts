@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService } from 'src/app/shared/services/pages/products.service';
-// import { ProductsService } from '@ProductsService';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { ProductsService } from '@services/pages/products.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ProductsComponent implements OnInit {
   products: any
-  constructor(private productService: ProductsService, private authService: AuthService,private router: Router) {
+  constructor(private productService: ProductsService,private router: Router) {
 
   }
   ngOnInit(): void {

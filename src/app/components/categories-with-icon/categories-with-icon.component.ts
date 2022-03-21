@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService } from 'src/app/shared/services/pages/products.service';
-import { ComponentsService } from 'src/app/shared/services/components/components.service';
+import { ProductsService } from '@services/pages/products.service';
+import { ComponentsService } from '@services/components/components.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-categories-with-icon',
