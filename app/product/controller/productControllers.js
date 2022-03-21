@@ -29,7 +29,7 @@ class ProductController {
       if (!product) {
         return res.status(404).json({ message: "No product found" });
       }
-      return res.status(200).json({ product: product });
+      return res.status(200).json(product);
     } catch (error) {
       return res.status(500).json({
         message: error.message,

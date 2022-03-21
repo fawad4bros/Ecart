@@ -8,8 +8,11 @@ export class ProductsService {
 
   constructor(private http: HttpClient) {
   }
-  getItems(){
+  getProducts(){
     return this.http.get(`${environment.baseUrl}product/get-products`);
+  }
+  getProduct(_id:any){
+    return this.http.get(`${environment.baseUrl}product/get-product/${_id}`);
   }
   getcategories(){
     return this.http.get(`${environment.baseUrl}product/get-categories`);
