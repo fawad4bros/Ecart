@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService } from 'src/app/shared/services/pages/products.service';
+import { ProductsService } from '@services/pages/products.service';
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',

@@ -12,11 +12,18 @@ import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../components/components.module';
 import {MatInputModule} from '@angular/material/input';
+import { ProductComponent } from './product/product.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatSelectModule} from '@angular/material/select';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     ProductsComponent,
     LoginComponent,
     RegisterComponent,
+    ProductComponent,
   ],
   imports: [
     CommonModule,
@@ -28,7 +35,12 @@ import {MatInputModule} from '@angular/material/input';
     ComponentsModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    MatGridListModule,
+    MatDividerModule,
+    MatSelectModule,
+    MatTabsModule,
+    MatProgressSpinnerModule
   ],
   exports: [ ProductsComponent,LoginComponent ],
   providers:[{

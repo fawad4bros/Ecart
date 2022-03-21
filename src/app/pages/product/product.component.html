@@ -1,0 +1,40 @@
+<app-header-bar></app-header-bar>
+<app-nav-bar></app-nav-bar>
+
+<div class="split left">
+  <div class="centered">
+    <img src={{productDetails.productImagePath}}>
+  </div>
+</div>
+
+<div class="split right">
+  <div class="centered">
+    <p id="title">{{productDetails.productTitle}}</p>
+    <p id="rating" ><app-starrating></app-starrating></p>
+    <p id="total_orders">154 orders</p>
+    <p id="stock" >In stock</p>
+    <br>
+    <b>{{productDetails.productPrice | currency:'PKR':"Rs":"1.0-0"}}</b>
+    <p>{{productDetails.productDescription}}</p>
+    <p><b>Type:</b>Regular</p>
+    <p><b>Color:</b>Brown</p>
+    <p><b>Material:</b>Cotton, Jeans</p>
+    <p><b>Brand:</b>Reebook</p>
+
+    <mat-divider></mat-divider>
+<br>
+    <mat-form-field appearance="fill">
+      <mat-label>Size</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let size of sizes" [value]="size.value">
+          {{size.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <app-quantity></app-quantity>
+    <br>
+    <button mat-flat-button color="primary">Buy Now</button>
+    <button mat-flat-button color="primary">Add to cart</button>
+    <button mat-flat-button color="primary">Save</button>
+  </div>
+</div>
