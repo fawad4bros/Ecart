@@ -1,5 +1,4 @@
 <div class="categories" *ngIf="categories" >
-
   <div id="category" *ngFor="let category of categories">
     <button mat-button color="primary" (click)="getproducts(category)">
     <mat-icon aria-hidden="false">fastfood</mat-icon>
@@ -10,7 +9,7 @@
   <div id="products" *ngIf="productsByCategory" >
     <h1>{{category}} Products</h1>
     <mat-card *ngFor="let product of productsByCategory" >
-      <mat-card-content>
+      <mat-card-content (click)="addToCart(product._id)">
         <img mat-card-image src={{product.productImagePath}}>
           <b>{{product.productPrice | currency:'PKR':"Rs":"1.0-0"}}</b>
           <p>{{product.productTitle}}</p>

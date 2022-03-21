@@ -17,6 +17,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     ProductsComponent,
@@ -38,7 +39,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatGridListModule,
     MatDividerModule,
     MatSelectModule,
-    MatTabsModule
+    MatTabsModule,
+    MatProgressSpinnerModule
   ],
   exports: [ ProductsComponent,LoginComponent ],
   providers:[{

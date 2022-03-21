@@ -23,12 +23,12 @@ this.getProductId();
 this.getProduct();
   }
   getProductId(){
-    this.activateroute.params.subscribe((data)=>{
+    this.activateroute.params.subscribe((data:any)=>{
       this.prodictID = data['id']
     })
   }
   getProduct(){
-this.productsService.getProduct(this.prodictID).subscribe((data)=>{
+this.productsService.getProduct(this.prodictID).subscribe((data:any)=>{
   this.productDetails = data
 })
   }
