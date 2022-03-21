@@ -1,0 +1,23 @@
+<div class="categories" *ngIf="categories" >
+
+  <div id="category" *ngFor="let category of categories">
+    <button mat-button color="primary" (click)="getproducts(category)">
+    <mat-icon aria-hidden="false">fastfood</mat-icon>
+      <h4 style="color: #000000;">{{category}}</h4>
+  </button>
+  </div>
+  </div>
+  <div id="products" *ngIf="productsByCategory" >
+    <h1>{{category}} Products</h1>
+    <mat-card *ngFor="let product of productsByCategory" >
+      <mat-card-content>
+        <img mat-card-image src={{product.productImagePath}}>
+          <b>{{product.productPrice | currency:'PKR':"Rs":"1.0-0"}}</b>
+          <p>{{product.productTitle}}</p>
+          <button id="add_to_cart" mat-raised-button color="primary">Add to cart</button>
+            <button id="favorite_button" mat-raised-button>
+              <mat-icon id="favorite_icon" >favorite</mat-icon>
+            </button>
+      </mat-card-content>
+    </mat-card>
+    </div>

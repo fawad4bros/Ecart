@@ -1,0 +1,31 @@
+#example-form {
+  min-width: 50px;
+  max-width: 400px;
+  width: 100%;
+  // float: right;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.example-full-width {
+  width: 100%;
+}
+@media (max-width: 570px) {
+  #example-form {
+    display: block;
+    // max-width: 20%;
+    // float: left;
+  }
+  #search {
+  }
+  #category_option {
+  }
+  #search_button {
+  }
+}
+
+@media (max-width: 470px) {
+  #example-form {
+    display: none;
+  }
+}
