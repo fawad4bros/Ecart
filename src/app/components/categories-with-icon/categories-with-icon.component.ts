@@ -3,7 +3,7 @@ import { ProductsService } from '@services/pages/products.service';
 import { ComponentsService } from '@services/components/components.service';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-categories-with-icon',
+  selector: 'app-icon-categories',
   templateUrl: './categories-with-icon.component.html',
   styleUrls: ['./categories-with-icon.component.scss']
 })

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '@services/pages/products.service';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -10,7 +9,6 @@ import { Router } from '@angular/router';
 export class ProductsComponent implements OnInit {
   products: any
   constructor(private productService: ProductsService,private router: Router) {
-
   }
   ngOnInit(): void {
     this.getProducts();
@@ -18,9 +16,9 @@ export class ProductsComponent implements OnInit {
   addToCart(_id:any){
     this.router.navigate([`product/${_id}`])
   }
-
   getProducts(){
     this.productService.getProducts().subscribe((data:any) => {
+      console.log(data)
     this.products = data
     })
   }

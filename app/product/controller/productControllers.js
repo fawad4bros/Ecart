@@ -11,7 +11,7 @@ class ProductController {
     try {
       const products = await Product.find({})
         .limit(limit)
-        .sort({ productPrice: sort });
+        .sort({ price: sort });
       if (Object.keys(products).length === 0) {
         return res.status(404).json({ message: "Collection is empty" });
       }
@@ -45,12 +45,12 @@ class ProductController {
     }
     try {
       const product = await Product.create({
-        productTitle: req.body.title,
-        productPrice: req.body.price,
-        productDescription: req.body.description,
-        productCategory: req.body.category,
-        productImageName: req.file.filename,
-        productImagePath: `${req.protocol}://${req.get("host")}/images/${
+        title: req.body.title,
+        price: req.body.price,
+        description: req.body.description,
+        category: req.body.category,
+        imageName: req.file.filename,
+        imagePath: `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`,
       });
@@ -71,7 +71,7 @@ class ProductController {
         message: "No product found",
       });
     }
-    const previousProductImage = checkProduct.productImageName;
+    const previousProductImage = checkProduct.imageName;
     if (req.file === undefined) {
       return res.status(400).json({
         message: "image extension should be jpeg|jpg|png",
@@ -80,12 +80,12 @@ class ProductController {
     try {
       const filter = { _id: req.params.id };
       const update = {
-        productTitle: req.body.title,
-        productPrice: req.body.price,
-        productDescription: req.body.description,
-        productCategory: req.body.category,
-        productImageName: req.file.filename,
-        productImagePath: `${req.protocol}://${req.get("host")}/images/${
+        title: req.body.title,
+        price: req.body.price,
+        description: req.body.description,
+        category: req.body.category,
+        imageName: req.file.filename,
+        imagePath: `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`,
       };
@@ -111,7 +111,7 @@ class ProductController {
       if (!result) {
         return res.status(404).json({ message: "No product found" });
       }
-      const imagePath = `public/images/${result.productImageName}`;
+      const imagePath = `public/images/${result.imageName}`;
       fs.unlinkSync(imagePath);
       return res.status(200).json({
         message: "Product Successfully Deleted",
@@ -128,9 +128,9 @@ class ProductController {
       const category = req.params.category;
       const limit = Number(req.query.limit) || 0;
       const sort = req.query.sort === "desc" ? -1 : 1;
-      const result = await Product.find({ productCategory: category })
+      const result = await Product.find({ category: category })
         .limit(limit)
-        .sort({ productPrice: sort });
+        .sort({ price: sort });
       return res.status(200).json(result);
     } catch (error) {
       return res.status(500).json({
@@ -141,7 +141,7 @@ class ProductController {
 
   getProductCategories = async (req, res) => {
     try {
-      const result = await Product.distinct("productCategory");
+      const result = await Product.distinct("category");
       return res.status(200).json(result);
     } catch (error) {
       return res.status(500).json({
