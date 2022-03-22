@@ -3,19 +3,19 @@
 
 <div class="split left">
   <div class="centered">
-    <img src={{productDetails.productImagePath}}>
+    <img src={{productDetails.imagePath}}>
   </div>
 </div>
 
 <div class="split right">
   <div class="centered">
-    <p id="title">{{productDetails.productTitle}}</p>
+    <p id="title">{{productDetails.title}}</p>
     <p id="rating" ><app-starrating></app-starrating></p>
     <p id="total_orders">154 orders</p>
     <p id="stock" >In stock</p>
     <br>
-    <b>{{productDetails.productPrice | currency:'PKR':"Rs":"1.0-0"}}</b>
-    <p>{{productDetails.productDescription}}</p>
+    <b>{{productDetails.price | currency:'PKR':"Rs":"1.0-0"}}</b>
+    <p>{{productDetails.description}}</p>
     <p><b>Type:</b>Regular</p>
     <p><b>Color:</b>Brown</p>
     <p><b>Material:</b>Cotton, Jeans</p>

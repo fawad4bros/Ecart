@@ -12,7 +12,6 @@ export class LoginComponent implements OnInit {
   logUserRes: any;
   loginUserForm: FormGroup = new FormGroup({});
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private _router: Router,private _snackBar: MatSnackBar) {
-
    }
 
   ngOnInit(): void {
@@ -31,7 +30,6 @@ export class LoginComponent implements OnInit {
       this._router.navigate([''])
     },err => {
       this._snackBar.open('Wrong credentials')
-      console.error(err)
     })
 
   }
