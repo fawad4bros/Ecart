@@ -22,19 +22,20 @@
     <p><b>Brand:</b>Reebook</p>
 
     <mat-divider></mat-divider>
-<br>
+<br><div>
     <mat-form-field appearance="fill">
       <mat-label>Size</mat-label>
-      <mat-select>
+      <mat-select >
         <mat-option *ngFor="let size of sizes" [value]="size.value">
           {{size.viewValue}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <app-quantity></app-quantity>
+    <app-quantity ></app-quantity>
+  </div>
     <br>
-    <button mat-flat-button color="primary">Buy Now</button>
-    <button mat-flat-button color="primary">Add to cart</button>
-    <button mat-flat-button color="primary">Save</button>
+    <button mat-flat-button color="primary" id="buy_now">Buy Now</button>
+    <button mat-flat-button color="primary"><mat-icon class="inline">shopping_cart</mat-icon><p class="inline">Add to cart</p></button>
+    <button mat-flat-button color="primary"><mat-icon class="inline">favorite</mat-icon><p class="inline">Save</p></button>
   </div>
 </div>
