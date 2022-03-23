@@ -1,4 +1,16 @@
 #add_remove {
   color: #212529;
   background-color: #ffffff;
+  height: 30px;
+  width: 30px;
+  vertical-align: middle;
+  padding: 0px !important;
+  margin: 3px;
+}
+#add_remove mat-icon {
+  vertical-align: middle;
+  padding: 0px !important;
+}
+#icon {
+  padding: 0px !important;
 }

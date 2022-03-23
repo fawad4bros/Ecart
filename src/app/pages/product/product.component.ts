@@ -9,11 +9,6 @@ import { ProductsService } from '@services/pages/products.service';
 export class ProductComponent implements OnInit {
 prodictID:String = ''
 productDetails:any
-sizes: any = [
-  {value: 'small', viewValue: 'Small'},
-  {value: 'medium', viewValue: 'Medium'},
-  {value: 'large', viewValue: 'Large'},
-];
   constructor(private activateroute: ActivatedRoute ,private productsService:ProductsService) {
   }
   ngOnInit(): void {

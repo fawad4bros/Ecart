@@ -1,3 +1,7 @@
+.star-rating-container {
+  display: inline-block;
+  vertical-align: middle;
+}
 .star {
   margin: 0px 0px;
   color: #a9a5a5;
@@ -8,8 +12,8 @@
 }
 
 .star mat-icon {
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
 }
 
 .star-gold {
@@ -28,4 +32,8 @@
 
 .star-rating-animation .star-hover:hover {
   transform: scale(1.3);
+}
+#total_rating {
+  color: orange;
+  vertical-align: middle;
 }
