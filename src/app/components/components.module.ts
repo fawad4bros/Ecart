@@ -10,12 +10,14 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import { StarratingComponent } from './starrating/starrating.component';
 import { QuantityComponent } from './quantity/quantity.component';
+import { SizeComponent } from './size/size.component';
 @NgModule({
   declarations: [
     CategoriesWithIconComponent,
     SearchBarComponent,
     StarratingComponent,
-    QuantityComponent
+    QuantityComponent,
+    SizeComponent
   ],
   imports: [
     CommonModule,
@@ -26,6 +28,6 @@ import { QuantityComponent } from './quantity/quantity.component';
     MatFormFieldModule,
     MatButtonModule
   ],
-  exports: [ CategoriesWithIconComponent,SearchBarComponent,StarratingComponent,QuantityComponent ]
+  exports: [ CategoriesWithIconComponent,SearchBarComponent,StarratingComponent,QuantityComponent,SizeComponent ]
 })
 export class ComponentsModule { }

@@ -27,7 +27,7 @@
 /* If you want the content centered horizontally and vertically */
 .centered {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -38,7 +38,6 @@
   width: 100%;
   // border-radius: 50%;
 }
-
 #rating {
   display: inline;
 }
@@ -57,7 +56,31 @@
 }
 #buy_now {
   background-color: #ff8100;
+  color: #ffffff;
 }
 .align {
   vertical-align: middle;
+}
+.text-success {
+  color: #00a524;
+}
+#title {
+  margin: 0;
+  text-align: left;
+}
+#about_product {
+  margin: 0;
+  padding: 0;
+}
+p {
+  margin: 0;
+  padding: 0;
+}
+#div_sizing {
+  margin: 0;
+  padding: 0;
+  height: 70px;
+}
+button {
+  margin-right: 3px;
 }

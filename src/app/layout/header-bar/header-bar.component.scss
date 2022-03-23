@@ -1,9 +1,17 @@
 .example-spacer {
   flex: 1 1 auto;
 }
-#header_bar {
-  display: inline-block;
+.right_margin_2px {
+  margin-right: 2px;
 }
 .inline {
   display: inline;
+}
+.btn-light {
+  background-color: #fff;
+  border-color: #dee2e6;
+  color: #212529;
+}
+.btn-light mat-icon {
+  color: #51585e;
 }
