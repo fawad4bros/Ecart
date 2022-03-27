@@ -1,0 +1,47 @@
+body {
+  background-color: #f8f9fa;
+  color: #f8f9fa;
+}
+.container {
+  padding: 40px;
+}
+.col-lg-9 {
+  display: inline-block;
+  float: left;
+  max-width: 50%;
+  padding: 30px;
+}
+
+.info {
+  display: inline-block;
+}
+.aside {
+  display: inline-block;
+}
+.vertical-align {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+#img_tag {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+#aside_img {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+.delivery {
+  padding: 30px;
+}
+.mat-card-div {
+  padding: 30px;
+}
+mat-card {
+  margin-bottom: 10px;
+}

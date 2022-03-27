@@ -1,0 +1,84 @@
+<app-header-bar></app-header-bar>
+<app-nav-bar></app-nav-bar>
+<div class="container">
+  <div class="row">
+    <div *ngIf="!cart?.length">
+<h1>Your Cart is empty</h1>
+    </div>
+    <div class="col-lg-9" *ngIf="cart?.length">
+      <mat-card-title>Your shopping cart</mat-card-title>
+        <mat-card *ngFor="let product of cart">
+        <div class="mat-card-div">
+<img class="vertical-align" mat-card-sm-image src={{product.imagePath}} >
+<div class="vertical-align">
+                <p style="margin: 0; padding: 0;">{{product.title}}</p>
+                <p style="margin: 0; padding: 0;"> {{product.category}} </p>
+                <p style="margin: 0; padding: 0;">{{product.size}}</p>
+              </div>
+          <div class="vertical-align">
+<p class="vertical-align">Quantity: {{product.quantity}}</p>
+          </div>
+          <div class="vertical-align">
+            <p class="vertical-align">Price: {{product.price}}</p>
+          </div>
+          <div class="vertical-align">
+              <mat-icon class="vertical-align" style="color: #51585E;">favorite</mat-icon>
+              <button class="vertical-align" mat-flat-button style="color: #FF2748;">remove</button>
+            </div>
+          </div>
+    </mat-card>
+    <mat-divider></mat-divider>
+    <div class="delivery">
+      <p><i class="me-2 text-muted fa-lg fa fa-truck"></i> Free Delivery within 1-2 weeks</p>
+      <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip</p>
+    </div>
+    </div>
+    <aside class="col-lg-3">
+      <mat-card style="padding: 20px; top: 20px;">
+      <div class="card mb-3">
+      <div class="card-body">
+      <form>
+        <div class="form-group">
+          <label class="form-label">Have coupon?</label>
+          <div class="input-group">
+            <input type="text" class="form-control" name="" placeholder="Coupon code">
+            <button class="btn btn-light">Apply</button>
+          </div>
+        </div>
+      </form>
+    </div>
+      </div>
+    </mat-card>
+    <mat-card style="padding: 20px; top: 50px;">
+      <div class="card">
+      <div class="card-body">
+        <dl class="dlist-align">
+          <dt>Total price:</dt>
+          <dd class="text-end"> $329.00</dd>
+        </dl>
+        <dl class="dlist-align">
+          <dt>Discount:</dt>
+          <dd class="text-end text-success"> - $60.00 </dd>
+        </dl>
+        <dl class="dlist-align">
+          <dt>TAX:</dt>
+          <dd class="text-end"> $14.00 </dd>
+        </dl>
+        <hr>
+        <dl class="dlist-align">
+          <dt>Total:</dt>
+          <dd class="text-end text-dark h5"> $357.90 </dd>
+        </dl>
+        <div class="d-grid gap-2 my-3">
+          <a href="#" class="btn btn-success w-100"> Make Purchase </a>
+          <a href="#" class="btn btn-light w-100"> Back to shop </a>
+        </div>
+      </div>
+      </div>
+    </mat-card>
+    </aside>
+  </div>
+  <br><br>
+  </div>

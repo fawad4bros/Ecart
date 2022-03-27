@@ -32,7 +32,12 @@
   transform: translate(-50%, -50%);
   text-align: center;
 }
-
+.top_40 {
+  top: 40%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  left: 30%;
+}
 /* Style the image inside the centered container, if needed */
 .centered img {
   width: 100%;
@@ -83,4 +88,14 @@ p {
 }
 button {
   margin-right: 3px;
+}
+
+@media (max-width: 600px) {
+  .top_40 {
+    top: 40%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    text-align: center;
+  }
 }

@@ -1,9 +1,10 @@
 <app-header-bar></app-header-bar>
 <app-nav-bar></app-nav-bar>
 <app-icon-categories></app-icon-categories>
-<h1>New Products</h1>
+
 <mat-spinner *ngIf="!products"></mat-spinner>
 <div id="products" *ngIf="products"  >
+  <h1>New Products</h1>
   <mat-card *ngFor="let product of products" >
     <mat-card-content (click)="addToCart(product._id)">
       <img mat-card-image src={{product.imagePath}}>

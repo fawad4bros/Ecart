@@ -2,7 +2,7 @@
 <button id="add_remove" mat-mini-fab (click)="remove()" >
   <mat-icon >remove</mat-icon>
 </button>
-<button mat-mini-fab disabled >{{quantity}}
+<button mat-mini-fab disabled #newItem>{{quantity}}
 </button>
 <button id="add_remove" mat-mini-fab (click)="add()">
   <mat-icon id="icon">add</mat-icon>

@@ -21,6 +21,7 @@ import { ProductsComponent } from './products/products.component';
 // Modules
 import { ComponentsModule } from '../components/components.module';
 import { LayoutModule } from '../layout/layout.module';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { LayoutModule } from '../layout/layout.module';
     LoginComponent,
     RegisterComponent,
     ProductComponent,
+    ShoppingCartComponent,
   ],
   imports: [
     CommonModule,
@@ -50,7 +52,7 @@ import { LayoutModule } from '../layout/layout.module';
   ],
   exports: [ ProductsComponent,LoginComponent ],
   providers:[{
-    provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 1000}
+    provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2000}
   }]
 })
 export class PagesModule { }

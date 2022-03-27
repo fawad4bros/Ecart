@@ -11,13 +11,15 @@ import {MatButtonModule} from '@angular/material/button';
 import { StarratingComponent } from './starrating/starrating.component';
 import { QuantityComponent } from './quantity/quantity.component';
 import { SizeComponent } from './size/size.component';
+import { PreviousOrdersComponent } from './previous-orders/previous-orders.component';
 @NgModule({
   declarations: [
     CategoriesWithIconComponent,
     SearchBarComponent,
     StarratingComponent,
     QuantityComponent,
-    SizeComponent
+    SizeComponent,
+    PreviousOrdersComponent
   ],
   imports: [
     CommonModule,
