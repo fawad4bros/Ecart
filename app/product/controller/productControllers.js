@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { async } = require("rxjs");
 
 const { Product } = require("../models/products");
 
@@ -162,5 +163,6 @@ class ProductController {
       });
     }
   };
+  searchTitle = async (req, res) => {};
 }
 module.exports = new ProductController();

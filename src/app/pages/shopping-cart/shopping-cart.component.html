@@ -23,7 +23,7 @@
           </div>
           <div class="vertical-align">
               <mat-icon class="vertical-align" style="color: #51585E;">favorite</mat-icon>
-              <button class="vertical-align" mat-flat-button style="color: #FF2748;">remove</button>
+              <button mat-flat-button class="vertical-align" mat-flat-button style="color: #FF2748;">remove</button>
             </div>
           </div>
     </mat-card>
@@ -36,7 +36,7 @@
     </div>
     </div>
     <aside class="col-lg-3">
-      <mat-card style="padding: 20px; top: 20px;">
+      <mat-card style="padding: 20px; top: 20px;"*ngIf="cart?.length">
       <div class="card mb-3">
       <div class="card-body">
       <form>
@@ -44,38 +44,24 @@
           <label class="form-label">Have coupon?</label>
           <div class="input-group">
             <input type="text" class="form-control" name="" placeholder="Coupon code">
-            <button class="btn btn-light">Apply</button>
+            <button mat-flat-button class="btn btn-light">Apply</button>
           </div>
         </div>
       </form>
     </div>
       </div>
     </mat-card>
-    <mat-card style="padding: 20px; top: 50px;">
-      <div class="card">
+    <mat-card style="padding: 20px; top: 50px;" *ngIf="cart?.length">
       <div class="card-body">
-        <dl class="dlist-align">
-          <dt>Total price:</dt>
-          <dd class="text-end"> $329.00</dd>
-        </dl>
-        <dl class="dlist-align">
-          <dt>Discount:</dt>
-          <dd class="text-end text-success"> - $60.00 </dd>
-        </dl>
-        <dl class="dlist-align">
-          <dt>TAX:</dt>
-          <dd class="text-end"> $14.00 </dd>
-        </dl>
-        <hr>
-        <dl class="dlist-align">
-          <dt>Total:</dt>
-          <dd class="text-end text-dark h5"> $357.90 </dd>
-        </dl>
-        <div class="d-grid gap-2 my-3">
-          <a href="#" class="btn btn-success w-100"> Make Purchase </a>
-          <a href="#" class="btn btn-light w-100"> Back to shop </a>
-        </div>
-      </div>
+        <ul style="list-style:none;">
+          <li>Total price:<p style="display: inline; float: right; margin-bottom: 0;;">${{totalprice}}</p></li>
+          <li>Discount:<p style="display: inline; color: #00A524; float: right; margin-bottom: 0;">- ${{discount}}</p></li>
+          <li>TAX:<p style="display: inline; float: right; margin-bottom: 0;">${{tax}}</p></li>
+          <hr>
+          <li>Total:<p style="display: inline; float: right; margin-bottom: 0;">${{orderPrice}}</p></li>
+        </ul>
+          <button mat-flat-button style="color: #00A524;"> Make Purchase </button>
+          <button mat-flat-button> Back to shop </button>
       </div>
     </mat-card>
     </aside>

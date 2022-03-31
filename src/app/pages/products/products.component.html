@@ -11,7 +11,7 @@
         <b>{{product.price | currency:'PKR':"Rs":"1.0-0"}}</b>
         <p>{{product.title}}</p>
         <button id="add_to_cart" mat-raised-button color="primary" >Add to cart</button>
-          <button id="favorite_button" mat-raised-button>
+          <button id="favorite_button" mat-raised-button (click) = "addToWishList(product)">
             <mat-icon id="favorite_icon" >favorite</mat-icon>
           </button>
     </mat-card-content>

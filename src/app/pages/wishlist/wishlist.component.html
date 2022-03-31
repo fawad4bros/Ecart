@@ -1,0 +1,35 @@
+<app-header-bar></app-header-bar>
+<app-nav-bar></app-nav-bar>
+<div class="container">
+  <div class="row">
+    <div *ngIf="!products?.length">
+<h1>Your wish list is empty</h1>
+    </div>
+    <div class="col-lg-9" *ngIf="products?.length">
+      <mat-card-title>Your wish list</mat-card-title>
+        <mat-card *ngFor="let product of products">
+        <div class="mat-card-div">
+<img class="vertical-align" mat-card-sm-image src={{product.imagePath}} >
+<div class="vertical-align">
+                <p style="margin: 0; padding: 0;">{{product.title}}</p>
+                <p style="margin: 0; padding: 0;"> {{product.category}} </p>
+                <p style="margin: 0; padding: 0;">{{product.size}}</p>
+              </div>
+          <div class="vertical-align">
+<p class="vertical-align">Quantity: {{product.quantity}}</p>
+          </div>
+          <div class="vertical-align">
+            <p class="vertical-align">Price: {{product.price}}</p>
+          </div>
+          <div class="vertical-align">
+              <mat-icon class="vertical-align" style="color: #51585E;">favorite</mat-icon>
+              <button mat-flat-button class="vertical-align" mat-flat-button style="color: #FF2748;">remove</button>
+            </div>
+          </div>
+    </mat-card>
+    <mat-divider></mat-divider>
+    </div>
+
+  </div>
+  <br><br>
+  </div>

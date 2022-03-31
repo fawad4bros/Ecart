@@ -4,6 +4,7 @@ import { ProductsService } from '@services/pages/products.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CartService } from '@services/cart.service';
+import { WishlistService } from '@services/wishlist.service';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -17,16 +18,11 @@ size:String = ''
 userID:any = localStorage.getItem('userID')
 product: any
 buyProduct:any
-// body:any
-// products: String[] = []
-
-// cart:any
-
-  constructor(private activateroute: ActivatedRoute ,private _snackBar: MatSnackBar,private productsService:ProductsService,private router: Router, private cart: CartService) {
+  constructor(private activateroute: ActivatedRoute ,private _snackBar: MatSnackBar,private productsService:ProductsService,private router: Router, private cart: CartService, private wishList: WishlistService) {
   }
   ngOnInit(): void {
-this.getProductId();
-this.getProduct();
+  this.getProductId();
+  this.getProduct();
   }
   getProductId(){
     this.activateroute.params.subscribe((data:any)=>{
@@ -46,42 +42,54 @@ this.getProduct();
   }
   addToCart(){
     if(!this.userID){
-  this.router.navigate(['login'])
-}
-if(!this.quantity || !this.size){
-  this._snackBar.open('Please check the size and quantity')
-}
-if(this.productID && this.quantity && this.size && this.userID){
-  this.product = {
-    'productId':this.productID,
-    'title':this.productDetails.title,
-    'price':this.productDetails.price,
-    'quantity':this.quantity,
-    'size':this.size,
-    'imagePath':this.productDetails.imagePath,
-    'category':this.productDetails.category,
-    'description':this.productDetails.description,
-  }
-  this.cart.addingToCart(this.product)
-    this._snackBar.open('Product added to cart')
-}
-
+      this.router.navigate(['login'])
+    }
+    else if(!this.quantity || !this.size){
+      this._snackBar.open('Please check the size and quantity')
+    }
+    else if(this.productID && this.quantity && this.size && this.userID){
+      this.product = {
+        'productId':this.productID,
+        'title':this.productDetails.title,
+        'price':this.productDetails.price,
+        'quantity':this.quantity,
+        'size':this.size,
+        'imagePath':this.productDetails.imagePath,
+        'category':this.productDetails.category,
+        'description':this.productDetails.description,
+      }
+      this.cart.addingToCart(this.product)
+      this._snackBar.open('Product added to cart')
+    }
   }
   buyNow(){
     if(!this.userID){
       this.router.navigate(['login'])
     }
-    if(!this.quantity || !this.size){
+    else if(!this.quantity || !this.size){
       this._snackBar.open('Please check the size and quantity')
     }
-    if(this.productID && this.quantity && this.size && this.userID){
+    else if(this.productID && this.quantity && this.size && this.userID){
       this.buyProduct = {
         'productId':this.productID,
+        'title':this.productDetails.title,
+        'price':this.productDetails.price,
         'quantity':this.quantity,
         'size':this.size,
-
+        'imagePath':this.productDetails.imagePath,
+        'category':this.productDetails.category,
+        'description':this.productDetails.description,
       }
-this.router.navigate(['shopping-cart'])
+      this.cart.addingToCart(this.buyProduct)
+      this.router.navigate(['shopping-cart'])
+    }
+  }
+  addToWishList(product:any){
+    if(!this.userID){
+      this.router.navigate(['login'])
+    }else{
+      this.wishList.addingToWishList(product)
+      this._snackBar.open('Product added to wishlist')
     }
   }
 }

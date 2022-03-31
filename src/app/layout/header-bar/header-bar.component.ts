@@ -17,5 +17,7 @@ export class HeaderBarComponent implements OnInit {
   toCartsPage(){
     this.router.navigate(['shopping-cart'])
   }
-
+  towishList(){
+    this.router.navigate(["wish-list"])
+  }
 }

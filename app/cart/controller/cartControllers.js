@@ -158,9 +158,6 @@ class CartController {
       const productsDetail = await Cart.find({
         $match: { userId: req.params.id },
       }).populate({ path: "products.productId" });
-      // ,
-      // { products: 1, _id: 0 }
-      // .populate({ path: "products.productId" });
       return res.status(200).json(productsDetail);
     } catch (error) {
       return res.status(500).json({

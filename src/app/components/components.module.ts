@@ -30,6 +30,6 @@ import { PreviousOrdersComponent } from './previous-orders/previous-orders.compo
     MatFormFieldModule,
     MatButtonModule
   ],
-  exports: [ CategoriesWithIconComponent,SearchBarComponent,StarratingComponent,QuantityComponent,SizeComponent ]
+  exports: [ CategoriesWithIconComponent,SearchBarComponent,StarratingComponent,QuantityComponent,SizeComponent, PreviousOrdersComponent ]
 })
 export class ComponentsModule { }

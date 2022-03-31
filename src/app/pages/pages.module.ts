@@ -22,6 +22,7 @@ import { ProductsComponent } from './products/products.component';
 import { ComponentsModule } from '../components/components.module';
 import { LayoutModule } from '../layout/layout.module';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     RegisterComponent,
     ProductComponent,
     ShoppingCartComponent,
+    WishlistComponent,
   ],
   imports: [
     CommonModule,
