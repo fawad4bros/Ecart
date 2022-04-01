@@ -163,6 +163,51 @@ class ProductController {
       });
     }
   };
-  searchTitle = async (req, res) => {};
+
+  searchTitle = async (req, res) => {
+    try {
+      if (req.query.title) {
+        let result = await Product.aggregate([
+          {
+            $search: {
+              index: "default",
+              compound: {
+                must: [
+                  {
+                    text: {
+                      query: req.query.title,
+                      path: "title",
+                      fuzzy: {
+                        maxEdits: 1,
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          },
+          {
+            $limit: 10,
+          },
+          {
+            $project: {
+              title: 1,
+              price: 1,
+              description: 1,
+              category: 1,
+              imageName: 1,
+              imagePath: 1,
+              // score: { $meta: "searchScore" },
+            },
+          },
+        ]);
+        return res.status(200).send(result);
+      }
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  };
 }
 module.exports = new ProductController();

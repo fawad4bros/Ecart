@@ -25,4 +25,7 @@ export class ProductsService {
   userPreviousOrders(userID:any){
     return this.http.get(`${environment.baseUrl}cart/get-previous-orders/${userID}`);
   }
+  searchByTitle(title:any){
+    return this.http.get(`${environment.baseUrl}product/search-title?title=${title}`);
+  }
 }

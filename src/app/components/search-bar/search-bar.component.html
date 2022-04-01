@@ -1,7 +1,17 @@
 <form id="example-form">
   <mat-form-field id="search">
     <mat-label>Search</mat-label>
-    <input matInput  type="search">
+    <!-- <input matInput  type="search" (key)="searching($event)"> -->
+    <input type="text" matInput  (keypress)="searching($event)" [matAutocomplete]="auto">
+    <!-- [formControl]="myControl" -->
+    <mat-select>
+<mat-autocomplete #auto="matAutocomplete">
+  <!-- [value]="title" -->
+<mat-option *ngFor="let title of searchedTitle"  (click)="gettingSellectedValue(title)">
+ {{title.title}}
+</mat-option>
+</mat-autocomplete>
+</mat-select>
   </mat-form-field>
   <mat-form-field id="category_option" >
     <mat-label>Favorite food</mat-label>
