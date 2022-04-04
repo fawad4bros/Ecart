@@ -8,7 +8,6 @@ export class WishlistService {
   constructor() { }
   addingToWishList(wish: any){
   this.wishlist.push(wish)
-  console.log('this.wishlist',this.wishlist)
   }
   getWishList(){
     return this.wishlist

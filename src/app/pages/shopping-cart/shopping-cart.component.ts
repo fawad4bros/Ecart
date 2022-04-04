@@ -27,9 +27,7 @@ orderPrice: number = 0
   totalPrice(){
   this.cart.forEach((value:any) =>{
   this.priceByQuantity = value.quantity * value.price
-  console.log('this.priceByQuantity',this.priceByQuantity)
   this.totalprice += this.priceByQuantity
-  console.log('this.totalprice',this.totalprice)
 })
 }
 getDiscount(){
