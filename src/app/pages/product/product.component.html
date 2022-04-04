@@ -1,6 +1,6 @@
 <app-header-bar></app-header-bar>
 <app-nav-bar></app-nav-bar>
-<div id="product">
+<div id="product" *ngIf="productDetails">
 <div class="split left">
   <div class="centered">
     <img src={{productDetails.imagePath}}>
@@ -8,7 +8,7 @@
 </div>
 
 <div class="split right">
-  <div class="centered">
+  <div class="top_40">
     <p id="title">{{productDetails.title}}</p>
     <p id="about_product" ><app-starrating></app-starrating>
    154 orders
@@ -23,12 +23,16 @@
     <p><b>Brand:</b>Reebook</p>
     <mat-divider></mat-divider>
     <div id="div_sizing">
-      <app-size></app-size>
-      <app-quantity></app-quantity>
+      <!-- Components -->
+      <app-size (productSize)='addSize($event)'></app-size>
+      <app-quantity (quantityCount)='addQuantity($event)'></app-quantity>
+        <!-- Components -->
     </div>
-    <button mat-flat-button id="buy_now">Buy Now</button>
-    <button mat-flat-button color="primary"><mat-icon class="inline">shopping_cart</mat-icon><p class="inline">Add to cart</p></button>
-    <button mat-flat-button color="primary"><mat-icon class="inline">favorite</mat-icon><p class="inline">Save</p></button>
+    <div>
+    <button mat-flat-button id="buy_now" (click)="buyNow()">Buy Now</button>
+    <button mat-flat-button color="primary" (click)="addToCart()"><mat-icon class="inline">shopping_cart</mat-icon><p class="inline">Add to cart</p></button>
+    <button mat-flat-button color="primary" (click) ="addToWishList(productDetails)"><mat-icon class="inline">favorite</mat-icon><p class="inline">Save</p></button>
+  </div>
   </div>
 </div>
 </div>

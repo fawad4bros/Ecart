@@ -23,7 +23,8 @@ class UserController {
         expiresIn: "1h",
       });
       return res.status(200).json({
-        message: `Welcome ${user.name}`,
+        user: `Welcome ${user.name}`,
+        userID: user._id,
         token: token,
       });
     } catch (error) {

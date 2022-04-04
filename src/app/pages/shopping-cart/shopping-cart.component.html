@@ -1,0 +1,70 @@
+<app-header-bar></app-header-bar>
+<app-nav-bar></app-nav-bar>
+<div class="container">
+  <div class="row">
+    <div *ngIf="!cart?.length">
+<h1>Your Cart is empty</h1>
+    </div>
+    <div class="col-lg-9" *ngIf="cart?.length">
+      <mat-card-title>Your shopping cart</mat-card-title>
+        <mat-card *ngFor="let product of cart">
+        <div class="mat-card-div">
+<img class="vertical-align" mat-card-sm-image src={{product.imagePath}} >
+<div class="vertical-align">
+                <p style="margin: 0; padding: 0;">{{product.title}}</p>
+                <p style="margin: 0; padding: 0;"> {{product.category}} </p>
+                <p style="margin: 0; padding: 0;">{{product.size}}</p>
+              </div>
+          <div class="vertical-align">
+<p class="vertical-align">Quantity: {{product.quantity}}</p>
+          </div>
+          <div class="vertical-align">
+            <p class="vertical-align">Price: {{product.price}}</p>
+          </div>
+          <div class="vertical-align">
+              <mat-icon class="vertical-align" style="color: #51585E;">favorite</mat-icon>
+              <button mat-flat-button class="vertical-align" mat-flat-button style="color: #FF2748;">remove</button>
+            </div>
+          </div>
+    </mat-card>
+    <mat-divider></mat-divider>
+    <div class="delivery">
+      <p><i class="me-2 text-muted fa-lg fa fa-truck"></i> Free Delivery within 1-2 weeks</p>
+      <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip</p>
+    </div>
+    </div>
+    <aside class="col-lg-3">
+      <mat-card style="padding: 20px; top: 20px;"*ngIf="cart?.length">
+      <div class="card mb-3">
+      <div class="card-body">
+      <form>
+        <div class="form-group">
+          <label class="form-label">Have coupon?</label>
+          <div class="input-group">
+            <input type="text" class="form-control" name="" placeholder="Coupon code">
+            <button mat-flat-button class="btn btn-light">Apply</button>
+          </div>
+        </div>
+      </form>
+    </div>
+      </div>
+    </mat-card>
+    <mat-card style="padding: 20px; top: 50px;" *ngIf="cart?.length">
+      <div class="card-body">
+        <ul style="list-style:none;">
+          <li>Total price:<p style="display: inline; float: right; margin-bottom: 0;;">${{totalprice}}</p></li>
+          <li>Discount:<p style="display: inline; color: #00A524; float: right; margin-bottom: 0;">- ${{discount}}</p></li>
+          <li>TAX:<p style="display: inline; float: right; margin-bottom: 0;">${{tax}}</p></li>
+          <hr>
+          <li>Total:<p style="display: inline; float: right; margin-bottom: 0;">${{orderPrice}}</p></li>
+        </ul>
+          <button mat-flat-button style="color: #00A524;"> Make Purchase </button>
+          <button mat-flat-button> Back to shop </button>
+      </div>
+    </mat-card>
+    </aside>
+  </div>
+  <br><br>
+  </div>

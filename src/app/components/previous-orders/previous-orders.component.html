@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9">
+      <mat-card-title>Your previous orders</mat-card-title>
+        <mat-card *ngFor="let cart of carts">
+        <div class="mat-card-div">
+<img class="vertical-align" mat-card-sm-image src={{cart.productId.imagePath}} >
+<div class="vertical-align">
+                <p style="margin: 0; padding: 0;">{{cart.productId.title}}</p>
+                <p style="margin: 0; padding: 0;"> {{cart.productId.category}} </p>
+                <p style="margin: 0; padding: 0;">size</p>
+              </div>
+          <div class="vertical-align">
+<p class="vertical-align">Quantity: {{cart.quantity}}</p>
+          </div>
+          <div class="vertical-align">
+            <p class="vertical-align">Total price: {{cart.productId.price * cart.quantity}}</p>
+          </div>
+          </div>
+    </mat-card>
+    </div>
+  </div>
+  </div>

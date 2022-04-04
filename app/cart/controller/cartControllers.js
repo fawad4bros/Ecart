@@ -81,9 +81,7 @@ class CartController {
       const result = await Cart.find({ userId: id })
         .limit(limit)
         .sort({ userId: sort });
-      return res.status(200).json({
-        carts: result,
-      });
+      return res.status(200).json(result);
     } catch (error) {
       return res.status(500).json({
         message: error.message,
@@ -157,15 +155,10 @@ class CartController {
 
   userPreviousOrders = async (req, res) => {
     try {
-      const productsDetail = await Cart.find(
-        {
-          $match: { userId: req.params.id },
-        },
-        { products: 1, _id: 0 }
-      ).populate({ path: "products.productId" });
-      return res.status(200).json({
-        products: productsDetail,
-      });
+      const productsDetail = await Cart.find({
+        $match: { userId: req.params.id },
+      }).populate({ path: "products.productId" });
+      return res.status(200).json(productsDetail);
     } catch (error) {
       return res.status(500).json({
         message: error.message,

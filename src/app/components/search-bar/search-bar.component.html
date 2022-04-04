@@ -1,18 +1,23 @@
 <form id="example-form">
   <mat-form-field id="search">
     <mat-label>Search</mat-label>
-    <input matInput  type="search">
+    <input type="text" matInput  (keypress)="searching($event)" [matAutocomplete]="auto">
+    <mat-select>
+<mat-autocomplete #auto="matAutocomplete">
+<mat-option *ngFor="let title of searchedTitle"  (click)="gettingSellectedValue(title)">
+ {{title.title}}
+</mat-option>
+</mat-autocomplete>
+</mat-select>
   </mat-form-field>
-  <mat-form-field id="category_option" >
-    <mat-label>Favorite food</mat-label>
-    <mat-select  name="food">
+  <mat-form-field>
+    <mat-select  [(ngModel)]="selectedCategory" [ngModelOptions]="{standalone: true}">
       <mat-option *ngFor="let food of foods" [value]="food.value">
         {{food}}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-button color="primary" id="search_button">
+  <button (click)="search()" mat-button color="primary" id="search_button" type="submit">
     <mat-icon>search</mat-icon>
   </button>
 </form>
-<!-- [(ngModel)]="selectedValue" -->

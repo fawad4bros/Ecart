@@ -8,6 +8,6 @@
   <app-search-bar></app-search-bar>
   <span class="example-spacer"></span>
   <button (click)="logIn()"  mat-raised-button   class="right_margin_2px btn-light"><mat-icon class="inline ">person</mat-icon><p class="inline ">Sign in</p></button>
-  <button mat-raised-button  class="right_margin_2px btn-light"><mat-icon class="inline" >favorite</mat-icon><p class="inline" >Wishlist</p></button>
-  <button mat-raised-button class="btn-light"><mat-icon class="inline" >shopping_cart</mat-icon><p class="inline">Wishlist</p></button>
+  <button mat-raised-button  class="right_margin_2px btn-light" (click)="towishList()"><mat-icon class="inline" >favorite</mat-icon><p class="inline" >Wishlist</p></button>
+  <button mat-raised-button class="btn-light" (click)="toCartsPage()"><mat-icon class="inline" >shopping_cart</mat-icon><p class="inline">Cart</p></button>
 </mat-toolbar>

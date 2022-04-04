@@ -19,4 +19,13 @@ export class ProductsService {
   addToCart(body:any){
     return this.http.get(`${environment.baseUrl}cart/add-cart`, body);
   }
+  getUserCart(userID:any){
+    return this.http.get(`${environment.baseUrl}cart/get-user-cart/${userID}`);
+  }
+  userPreviousOrders(userID:any){
+    return this.http.get(`${environment.baseUrl}cart/get-previous-orders/${userID}`);
+  }
+  searchByTitle(title:any){
+    return this.http.get(`${environment.baseUrl}product/search-title?title=${title}`);
+  }
 }
