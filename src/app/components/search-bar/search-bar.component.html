@@ -10,9 +10,9 @@
 </mat-autocomplete>
 </mat-select>
   </mat-form-field>
-  <mat-form-field>
-    <mat-select  [(ngModel)]="selectedCategory" [ngModelOptions]="{standalone: true}">
-      <mat-option *ngFor="let food of foods" [value]="food.value">
+  <mat-form-field >
+    <mat-select [(ngModel)]="selectedValue" name="selected">
+      <mat-option *ngFor="let food of foods" [value]="food">
         {{food}}
       </mat-option>
     </mat-select>

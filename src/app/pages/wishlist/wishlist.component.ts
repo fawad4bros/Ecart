@@ -16,5 +16,7 @@ products:any
   gettingwishList(){
   this.products =  this.wishList.getWishList()
   }
+  removeItem(_id:any){
 
+  }
 }

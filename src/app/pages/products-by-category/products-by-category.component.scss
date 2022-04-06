@@ -1,0 +1,32 @@
+mat-card {
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-grid;
+  position: relative;
+  max-width: 15%;
+  margin: 5px;
+}
+#products {
+  margin-left: 20px;
+}
+#add_to_cart {
+  display: inline;
+}
+#favorite_button {
+  display: inline;
+}
+@media (max-width: 690px) {
+  mat-card {
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-block;
+    margin: 5px;
+    max-width: 20%;
+  }
+}
+
+@media (max-width: 470px) {
+  mat-card {
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 5px;
+    max-width: 50%;
+  }
+}

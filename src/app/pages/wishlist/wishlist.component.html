@@ -23,7 +23,7 @@
           </div>
           <div class="vertical-align">
               <mat-icon class="vertical-align" style="color: #51585E;">favorite</mat-icon>
-              <button mat-flat-button class="vertical-align" mat-flat-button style="color: #FF2748;">remove</button>
+              <button mat-flat-button (click)="removeItem(product._id)" class="vertical-align" mat-flat-button style="color: #FF2748;">remove</button>
             </div>
           </div>
     </mat-card>
