@@ -6,13 +6,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./header-bar.component.scss']
 })
 export class HeaderBarComponent implements OnInit {
-
+  userID:any = localStorage.getItem('userID')
   constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
   logIn(){
     this.router.navigate(['login'])
+  }
+  logout(){
+    localStorage.clear()
+    location.reload()
+    this.router.navigate([''])
   }
   toCartsPage(){
     this.router.navigate(['shopping-cart'])

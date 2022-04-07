@@ -19,8 +19,10 @@ userID:any = localStorage.getItem('userID')
 product: any
 buyProduct:any
   constructor(private activateroute: ActivatedRoute ,private _snackBar: MatSnackBar,private productsService:ProductsService,private router: Router, private cart: CartService, private wishList: WishlistService) {
+
   }
   ngOnInit(): void {
+  this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   this.getProductId();
   this.getProduct();
   }
@@ -28,6 +30,7 @@ buyProduct:any
     this.activateroute.params.subscribe((data:any)=>{
       this.productID = data['id']
     })
+
   }
   getProduct(){
   this.productsService.getProduct(this.productID).subscribe((data:any)=>{

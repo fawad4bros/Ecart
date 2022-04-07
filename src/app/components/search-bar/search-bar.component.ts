@@ -1,6 +1,7 @@
 import { Component, OnInit  } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductsService } from '@services/pages/products.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
@@ -9,8 +10,8 @@ import { ProductsService } from '@services/pages/products.service';
 export class SearchBarComponent implements OnInit {
   foods:any
   searchedTitle:any
-  selectedCategory:any
-  constructor(private productService: ProductsService,private router: Router) {
+  selectedValue:any
+  constructor(private productService: ProductsService,private router: Router,private _snackBar: MatSnackBar) {
    }
   ngOnInit(): void {
     this.getCategories()
@@ -30,5 +31,11 @@ export class SearchBarComponent implements OnInit {
     this.router.navigate([`product/${product._id}`])
   }
   search(){
+    if(!this.selectedValue){
+      this._snackBar.open('Select a category')
+    }else{
+      this.router.navigate([`products-by-category/${this.selectedValue}`])
+    }
+
   }
 }

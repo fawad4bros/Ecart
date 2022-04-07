@@ -67,17 +67,17 @@ class UserController {
         email: req.body.email,
         username: req.body.username,
         password: req.body.password,
-        name: {
-          firstname: req.body.name.firstname,
-          lastname: req.body.name.lastname,
-        },
-        address: {
-          city: req.body.address.city,
-          street: req.body.address.street,
-          number: req.body.address.number,
-          zipcode: req.body.address.zipcode,
-        },
-        phone: req.body.phone,
+        // name: {
+        //   firstname: req.body.name.firstname,
+        //   lastname: req.body.name.lastname,
+        // },
+        // address: {
+        //   city: req.body.address.city,
+        //   street: req.body.address.street,
+        //   number: req.body.address.number,
+        //   zipcode: req.body.address.zipcode,
+        // },
+        // phone: req.body.phone,
       });
       return res.status(201).json({ message: "Successfully Created" });
     } catch (error) {

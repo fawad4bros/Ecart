@@ -1,0 +1,19 @@
+<app-header-bar></app-header-bar>
+<app-nav-bar></app-nav-bar>
+<app-icon-categories></app-icon-categories>
+
+<mat-spinner *ngIf="!products"></mat-spinner>
+<div id="products" *ngIf="products"  >
+  <h1>{{category}} Products</h1>
+  <mat-card *ngFor="let product of products" >
+    <mat-card-content (click)="addToCart(product._id)">
+      <img mat-card-image src={{product.imagePath}}>
+        <b>{{product.price | currency:'PKR':"Rs":"1.0-0"}}</b>
+        <p>{{product.title}}</p>
+        <button id="add_to_cart" mat-raised-button color="primary" >Add to cart</button>
+          <button id="favorite_button" mat-raised-button (click) = "addToWishList(product)">
+            <mat-icon id="favorite_icon" >favorite</mat-icon>
+          </button>
+    </mat-card-content>
+  </mat-card>
+  </div>

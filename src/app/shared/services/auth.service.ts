@@ -13,7 +13,7 @@ export class AuthService {
 
   }
   registeruser(userData: any){
-    return this.http.post(environment.baseUrl + 'user/user-login', userData);
+    return this.http.post(environment.baseUrl + 'user/user-registration', userData);
   }
   loggedIn(){
     return !!localStorage.getItem('token')
