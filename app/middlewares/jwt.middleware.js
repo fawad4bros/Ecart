@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
     if (token === "null") {
       return res.status(401).json({ message: "Authorization empty" });
     }
-    let payload = jwt.verify(token, "somethingSomething");
+    let payload = jwt.verify(token, process.env.SECRETKEY);
     if (!payload) {
       return res
         .status(401)

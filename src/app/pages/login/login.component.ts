@@ -25,14 +25,14 @@ export class LoginComponent implements OnInit {
   }
   loginUser(){
     this.authService.loginuser(this.loginUserForm.value).subscribe((data) => {
+      console.log(data)
       this.logUserRes = data
       localStorage.setItem('token',this.logUserRes.token)
-      localStorage.setItem('userID',this.logUserRes.userID)
+      localStorage.setItem('user_id',this.logUserRes.user_id)
       this._router.navigate([''])
     },err => {
       this._snackBar.open('Wrong credentials')
     })
-
   }
   toSignUp(){
     this._router.navigate(['signup'])

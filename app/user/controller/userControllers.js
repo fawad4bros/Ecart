@@ -62,6 +62,8 @@ class UserController {
   };
 
   userRegistration = async (req, res) => {
+    console.log("req", req);
+    console.log("req.body", req.body);
     try {
       await User.create({
         email: req.body.email,

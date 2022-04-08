@@ -16,7 +16,6 @@ const routes: Routes = [
   {path:'shopping-cart',component: ShoppingCartComponent},
   {path:'wish-list',component: WishlistComponent},
   {path:'products-by-category/:category',component: ProductsByCategoryComponent},
-
 ];
 
 @NgModule({

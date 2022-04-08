@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./header-bar.component.scss']
 })
 export class HeaderBarComponent implements OnInit {
-  userID:any = localStorage.getItem('userID')
+  userID:any = localStorage.getItem('user_id')
   constructor(private router: Router) { }
 
   ngOnInit(): void {

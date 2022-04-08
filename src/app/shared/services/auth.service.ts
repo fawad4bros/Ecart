@@ -13,6 +13,7 @@ export class AuthService {
 
   }
   registeruser(userData: any){
+    console.log('userData',userData)
     return this.http.post(environment.baseUrl + 'user/user-registration', userData);
   }
   loggedIn(){

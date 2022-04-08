@@ -9,9 +9,10 @@ import { AuthService } from '@services/auth.service';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
+  regUserData:any
   regUserForm: FormGroup = new FormGroup({});
-  Roles: any = ['Admin', 'Author', 'Reader'];
-  selectedRole:any
+  // Roles: any = ['Admin', 'Author', 'Reader'];
+  // selectedRole:any
   constructor(private formBuilder: FormBuilder, private authService: AuthService,private _router: Router,private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -22,11 +23,13 @@ export class SignupComponent implements OnInit {
       'email': new FormControl('',[Validators.required]),
       'password': new FormControl('',[Validators.required]),
       'username': new FormControl('',[Validators.required]),
-      // 'selectedRole': new FormControl('',[Validators.required])
     })
   }
   regUser(){
-    this.authService.registeruser(this.regUserForm.value)
+    this.regUserData = this.regUserForm.value
+    this.authService.registeruser( this.regUserData).subscribe((data)=>{
+      console.log('data',data)
+    })
     this._router.navigate(['login'])
   }
 }
